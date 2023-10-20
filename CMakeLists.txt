@@ -14,6 +14,9 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   cv_bridge
   pcl_conversions
+  dynamic_reconfigure
+  beego_control
+  dynamixel_sdk
 )
 
 find_package(OpenCV REQUIRED)
@@ -56,6 +59,8 @@ add_message_files(
   FILES
   PointCloudData.msg
   ClusterData.msg
+  ClassificationData.msg
+  SensorMapData.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -94,6 +99,10 @@ generate_messages(
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
+# configファイルを追加
+generate_dynamic_reconfigure_options(
+  cfg/classification.cfg
+)
 # generate_dynamic_reconfigure_options(
 #   cfg/DynReconf1.cfg
 #   cfg/DynReconf2.cfg
@@ -128,6 +137,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
 )
 
@@ -135,6 +145,13 @@ include_directories(
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/autonomous_mobile_robot_2022.cpp
 # )
+add_executable(${PROJECT_NAME}_cc # classification
+  src/classification/constructor.cpp
+  src/classification/methods.cpp
+  src/classification/debug_main.cpp
+  src/classification/debug_methods.cpp
+  src/classification/property.cpp
+)
 add_executable(${PROJECT_NAME}_pc # manage
   src/constructor.cpp
   src/methods.cpp
@@ -150,9 +167,55 @@ add_executable(${PROJECT_NAME}_cd # manage
 
 add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_sc ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_lrf ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_im ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_mv ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_si ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_frm ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_estimate ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_red ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_cp_vfh ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_simulater ${PROJECT_NAME}_generate_messages_cpp)
+
+add_dependencies(${PROJECT_NAME}_aa ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_aa_sim ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_sp ${PROJECT_NAME}_generate_messages_cpp)
+
+add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_estimate ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_im ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_mv ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_red ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_cp_vfh ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_simulater ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_aa ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_aa_sim ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}_sp ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
+target_link_libraries(${PROJECT_NAME}_cc ${catkin_LIBRARIES}) # classification
+target_link_libraries(${PROJECT_NAME}_sc ${catkin_LIBRARIES}) # stereo camera 
+target_link_libraries(${PROJECT_NAME}_lrf ${catkin_LIBRARIES}) # laser range finder
+target_link_libraries(${PROJECT_NAME}_im ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}) # image matching
+target_link_libraries(${PROJECT_NAME}_mv ${catkin_LIBRARIES} ) # measurement velocity
+target_link_libraries(${PROJECT_NAME}_si ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}) # synchro image
+target_link_libraries(${PROJECT_NAME}_frm ${catkin_LIBRARIES} ) # manege 
+target_link_libraries(${PROJECT_NAME}_estimate ${catkin_LIBRARIES} ) # estimate 
+target_link_libraries(${PROJECT_NAME}_red ${catkin_LIBRARIES} ) # record experiment dat
+target_link_libraries(${PROJECT_NAME}_cp_vfh ${catkin_LIBRARIES}) # obstacle_avoidance
+target_link_libraries(${PROJECT_NAME}_simulater ${catkin_LIBRARIES}) #simulater
+target_link_libraries(${PROJECT_NAME}_apf ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_apf_mpc ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+target_link_libraries(${PROJECT_NAME}_aa ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_aa_sim ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+
+target_link_libraries(${PROJECT_NAME}_sp ${catkin_LIBRARIES}) # classification
+
 
 #############
 ## Install ##
