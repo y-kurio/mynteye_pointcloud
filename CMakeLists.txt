@@ -60,6 +60,7 @@ add_message_files(
   PointCloudData.msg
   ClusterData.msg
   ClassificationData.msg
+  ClassificationElement.msg
   SensorMapData.msg
 )
 
@@ -168,53 +169,12 @@ add_executable(${PROJECT_NAME}_cd # manage
 add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_sc ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_lrf ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_im ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_mv ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_si ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_frm ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_estimate ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_red ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_cp_vfh ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_simulater ${PROJECT_NAME}_generate_messages_cpp)
-
-add_dependencies(${PROJECT_NAME}_aa ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_aa_sim ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_sp ${PROJECT_NAME}_generate_messages_cpp)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_estimate ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_im ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_mv ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_red ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_cp_vfh ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_simulater ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_aa ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_aa_sim ${PROJECT_NAME}_gencfg)
-add_dependencies(${PROJECT_NAME}_sp ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cc ${catkin_LIBRARIES}) # classification
-target_link_libraries(${PROJECT_NAME}_sc ${catkin_LIBRARIES}) # stereo camera 
-target_link_libraries(${PROJECT_NAME}_lrf ${catkin_LIBRARIES}) # laser range finder
-target_link_libraries(${PROJECT_NAME}_im ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}) # image matching
-target_link_libraries(${PROJECT_NAME}_mv ${catkin_LIBRARIES} ) # measurement velocity
-target_link_libraries(${PROJECT_NAME}_si ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}) # synchro image
-target_link_libraries(${PROJECT_NAME}_frm ${catkin_LIBRARIES} ) # manege 
-target_link_libraries(${PROJECT_NAME}_estimate ${catkin_LIBRARIES} ) # estimate 
-target_link_libraries(${PROJECT_NAME}_red ${catkin_LIBRARIES} ) # record experiment dat
-target_link_libraries(${PROJECT_NAME}_cp_vfh ${catkin_LIBRARIES}) # obstacle_avoidance
-target_link_libraries(${PROJECT_NAME}_simulater ${catkin_LIBRARIES}) #simulater
-target_link_libraries(${PROJECT_NAME}_apf ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_apf_mpc ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-
-target_link_libraries(${PROJECT_NAME}_aa ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_aa_sim ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
-
-
-target_link_libraries(${PROJECT_NAME}_sp ${catkin_LIBRARIES}) # classification
 
 
 #############

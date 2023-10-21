@@ -16,6 +16,26 @@ void pointClass::manage()
 
 void pointClass::Clustering()
 {
+    pcl::KdTreeFLANN<pcl::PointXYZ> kdtree;
+    kdtree.setInputCloud(pcloud.makeShared());
+
+    pcl::PointXYZ search_point; // 検索する点を設定
+    search_point.x = 1.0;
+    search_point.y = 2.0;
+    search_point.z = 3.0;
+
+    int K = 1; // 最も近い1つの点を探す
+
+    std::vector<int> pointIdxNKNSearch(K);
+    std::vector<float> pointNKNSquaredDistance(K);
+
+    if (kdtree.nearestKSearch(search_point, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0) {
+        for (size_t i = 0; i < pointIdxNKNSearch.size(); ++i) {
+            int point_index = pointIdxNKNSearch[i];
+            pcl::PointXYZ closest_point = pcloud.points[point_index];
+            ROS_INFO("Closest point coordinates: x = %f, y = %f, z = %f", closest_point.x, closest_point.y, closest_point.z);
+        }
+    }
 
 }
 

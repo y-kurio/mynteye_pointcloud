@@ -4,6 +4,9 @@
 #include <pcl_ros/segmentation/sac_segmentation.h>
 #include <pcl_ros/segmentation/extract_clusters.h>
 #include <pcl_ros/filters/voxel_grid.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl/kdtree/kdtree_flann.h>
 //データ型
 #include <mynteye_pointcloud/PointCloudData.h>
 
