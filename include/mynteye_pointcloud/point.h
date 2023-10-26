@@ -1,5 +1,14 @@
 #include <ros/ros.h>
 #include <pcl_ros/point_cloud.h>
+
+#include <geometry_msgs/Point.h>
+#include <std_msgs/Float64.h>
+#include <vector>
+#include <cmath>
+
+//msg
+#include <mynteye_pointcloud/ClassificationData.h>
+
 //点群
 #include <pcl_ros/segmentation/sac_segmentation.h>
 #include <pcl_ros/segmentation/extract_clusters.h>
@@ -18,13 +27,17 @@ class pointClass{
         ros::NodeHandle pnh;
         //カメラデータ受診
 		ros::NodeHandle nh;
-		ros::Subscriber sub_point_;
+		ros::Subscriber sub_point_, point_sub_;
         //sensor_msgs::PointCloud2 rawPC2,PC2;
+        geometry_msgs::Point closest_pt;
+        double closest_distance_;
         //点群データ
         pcl::PointCloud<pcl::PointXYZ> pcloud;
+        mynteye_pointcloud::ClassificationData Clstr;
+        // pcl::PointCloud<pcl::PointXYZ> closest_point;
         mynteye_pointcloud::PointCloudData cloud;
         //カメラ変換データ送信
-        ros::Publisher pubpcloud_, pubrawcloud_;
+        ros::Publisher pubpcloud_, pubrawcloud_, pubkd_, closest_point_pub_;
         float X_,Y_,Z_;
         double EXTRACT_XMIN = -std::numeric_limits<double>::infinity(), 
         EXTRACT_XMAX = std::numeric_limits<double>::infinity(), 
@@ -44,10 +57,12 @@ class pointClass{
         //in methods.cpp
         //--センサーデータ受信
         void pcloud_callback(const sensor_msgs::PointCloud2ConstPtr& msg);
+        void Cluster_callback(const mynteye_pointcloud::ClassificationData::ConstPtr& msg);
         void manage();
-        void Clustering();
+        // void Clustering();
         //点群の抜出
         void Extract();
+        void minpt();
         //センサデータ送信
         void publishPointCloud();//データ送信
         //データクリア

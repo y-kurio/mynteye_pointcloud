@@ -1,0 +1,13 @@
+<launch>
+  <!-- <arg name="robot_name"        default="robot2"/> //-->
+  <arg name="synchroManage/debugType" default="1"/>
+  <!-- <group ns="$(arg robot_name)"> -->
+ <!-- <node pkg="mynteye_pointcloud" name="mynteye_pointcloud_syncro" type="mynteye_pointcloud_syncro" output="screen"/> -->
+ <node pkg="mynteye_pointcloud" name="mynteye_pointcloud_si" type="mynteye_pointcloud_si">
+  <param name="debugType" value="$(arg synchroManage/debugType)"/>
+ </node> 
+ <node pkg="mynteye_pointcloud" name="mynteye_pointcloud_frm" type="mynteye_pointcloud_frm">
+  <param name="frameRate" value="15"/>
+ </node>
+  <!-- </group> -->
+</launch>
