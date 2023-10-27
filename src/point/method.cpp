@@ -49,8 +49,6 @@ void pointClass::manage()
 void pointClass::minpt()
 {
     // 初期値として一番近い点の位置をゼロに設定
-    closest_pt.x = 0.0;
-    closest_pt.y = 0.0;
 
     // 初期値として一番近い点の距離を最大値に設定
     closest_distance_ = std::numeric_limits<double>::max();
@@ -68,9 +66,9 @@ for (int k = 0; k < Clstr.data.size(); k++)
                 if (distance < closest_distance_) 
                 {
                     closest_distance_ = distance;
-                    closest_pt.x = x;
-                    closest_pt.y = y;
-                    closest_pt.z = z;
+                    closest_pt.close_pt[k].x = x;
+                    closest_pt.close_pt[k].y = y;
+                    closest_pt.close_pt[k].z = z;
                 }
         }
     }

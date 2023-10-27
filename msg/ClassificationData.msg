@@ -15,3 +15,4 @@ geometry_msgs/Point cp
 #クラスタデータ
 std_msgs/Int32 size #クラスタ数
 mynteye_pointcloud/ClassificationElement[] data
+geometry_msgs/Point[] close_pt

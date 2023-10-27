@@ -29,7 +29,7 @@ class pointClass{
 		ros::NodeHandle nh;
 		ros::Subscriber sub_point_, point_sub_;
         //sensor_msgs::PointCloud2 rawPC2,PC2;
-        geometry_msgs::Point closest_pt;
+        mynteye_pointcloud::ClassificationData closest_pt;
         double closest_distance_;
         //点群データ
         pcl::PointCloud<pcl::PointXYZ> pcloud;
