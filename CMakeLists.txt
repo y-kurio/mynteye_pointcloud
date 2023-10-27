@@ -176,10 +176,10 @@ add_executable(${PROJECT_NAME}_frm # manage
   src/frameRateManagement/property.cpp
 )
 add_executable(${PROJECT_NAME}_pc # manage
-  src/constructor.cpp
-  src/methods.cpp
-  src/debug_main.cpp
-  src/property.cpp
+  src/mynt/constructor.cpp
+  src/mynt/methods.cpp
+  src/mynt/debug_main.cpp
+  src/mynt/property.cpp
 )
 add_executable(${PROJECT_NAME}_cd # manage
   src/point/constructor.cpp

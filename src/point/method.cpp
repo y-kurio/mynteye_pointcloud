@@ -57,24 +57,20 @@ void pointClass::minpt()
 
 for (int k = 0; k < Clstr.data.size(); k++)
     {
-    if (Clstr.data.size() = 0 ) 
-                {
-                    continue;
-                }
     for (int m = 0; m < Clstr.data[k].pt.size(); m++)
         {
         double x = Clstr.data[k].pt[m].x;
         double y = Clstr.data[k].pt[m].y;
         double z = Clstr.data[k].pt[m].z;
         // これまでの一番近い点との距離を計算
-        double distance[k].dis = std::sqrt(x * x + y * y + z * z);
+        double distance = std::sqrt(x * x + y * y + z * z);
                 // より近い点が見つかった場合、情報を更新
-                if (distance[k].dis < closest_distance_) 
+                if (distance < closest_distance_) 
                 {
                     closest_distance_ = distance;
-                    closest_pt[k].x = x;
-                    closest_pt[k].y = y;
-                    closest_pt[k].z = z;
+                    closest_pt.x = x;
+                    closest_pt.y = y;
+                    closest_pt.z = z;
                 }
         }
     }
