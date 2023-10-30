@@ -40,39 +40,8 @@
       <arg name="classification/output_screen" value="$(arg classification/output_screen)"/>
     </include>
     <!-- image matching node -->
-    <!-- <include file="$(find mynteye_pointcloud)/launch/imageMatching.launch"> -->
-      <!-- <arg name="imageMatching/debugType" value="1"/> -->
-      <!--map parameter-->
-      <!-- <arg name="localMap/width/float" value="$(arg localMap/width/float)"/> -->
-      <!-- <arg name="localMap/height/float" value="$(arg localMap/height/float)"/> -->
-      <!-- <arg name="localMap/resolution" value="$(arg localMap/resolution)"/> -->
-      <!-- rqt_reconfigure -->
-      <!-- <arg name="imageMatching/rqt_reconfigure" value="$(arg imageMatching/rqt_reconfigure)"/> -->
-      <!-- output_screen-->
-      <!-- <arg name="imageMatching/output_screen" value="$(arg imageMatching/output_screen)"/> -->
-    <!-- </include> -->
     <!-- measurement velocity -->
-    <!-- <include file="$(find mynteye_pointcloud)/launch/measurementVelocity.launch"> -->
-      <!-- <arg name="measurementVelocity/debugType" value="1"/> -->
-      <!--debug parameter-->
-      <!-- <arg name="measurementVelocity/timeRange" value="10"/> -->
-      <!-- <arg name="measurementVelocity/timeInteval" value="1"/> -->
-      <!-- rqt_reconfigure -->
-      <!-- <arg name="measurementVelocity/rqt_reconfigure" value="$(arg measurementVelocity/rqt_reconfigure)"/> -->
-      <!-- output_screen-->
-      <!-- <arg name="measurementVelocity/output_screen" value="$(arg measurementVelocity/output_screen)"/> -->
-    <!-- </include> -->
     <!-- estimation velocity -->
-    <!-- <include file="$(find mynteye_pointcloud)/launch/velocityEstimation.launch"> -->
-      <!-- <arg name="estimationVelocity/debugType" value="1"/> -->
-      <!--debug parameter-->
-      <!-- <arg name="estimationVelocity/timeRange" value="10"/> -->
-      <!-- <arg name="estimationVelocity/timeInteval" value="1"/> -->
-      <!-- rqt_reconfigure -->
-      <!-- <arg name="estimationVelocity/rqt_reconfigure" value="$(arg estimationVelocity/rqt_reconfigure)"/> -->
-      <!-- output_screen-->
-      <!-- <arg name="estimationVelocity/output_screen" value="$(arg estimationVelocity/output_screen)"/> -->
-    <!-- </include> -->
   <!-- </group> -->
 
 </launch>

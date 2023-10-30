@@ -61,6 +61,8 @@ add_message_files(
   ClusterData.msg
   ClassificationData.msg
   ClassificationElement.msg
+  pointData.msg
+  pointElement.msg
   SensorMapData.msg
   MaskImageData.msg
   synchronizedImage.msg
@@ -189,21 +191,21 @@ add_executable(${PROJECT_NAME}_cd # manage
   src/point/property.cpp
 )
 
-add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_sc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_si ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_frm ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_gencfg)
 
-target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
-target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cc ${catkin_LIBRARIES}) # classification
 target_link_libraries(${PROJECT_NAME}_sc ${catkin_LIBRARIES}) # stereo camera 
 target_link_libraries(${PROJECT_NAME}_si ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}) # synchro image
 target_link_libraries(${PROJECT_NAME}_frm ${catkin_LIBRARIES} ) # manege 
+target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
+target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
 
 #############
 ## Install ##

@@ -4,7 +4,7 @@
     <param name="Xmax" value="1"/>
     <param name="Ymin" value="0"/>  <!-- 横-->
     <param name="Ymax" value="2"/>
-    <param name="Zmin" value="0"/>  <!-- 高さ-->
-    <param name="Zmax" value="1"/>
+    <param name="Zmin" value="-1"/>  <!-- 高さ-->
+    <param name="Zmax" value="3"/>
     </node>
 </launch>
