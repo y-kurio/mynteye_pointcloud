@@ -40,8 +40,8 @@ class pointClass{
         mynteye_pointcloud::PointCloudData cloud;
         //カメラ変換データ送信
         ros::Publisher pubpcloud_, pubrawcloud_, pubkd_, closest_point_pub_;
-        double x,y,z;
-        double minx, miny, minz;
+        double x_,y_,z_;
+        double minx_, miny_, minz_;
         double EXTRACT_XMIN = -std::numeric_limits<double>::infinity(), 
         EXTRACT_XMAX = std::numeric_limits<double>::infinity(), 
         EXTRACT_YMIN = -std::numeric_limits<double>::infinity(), 

@@ -18,7 +18,7 @@ void pointClass::manage()
 		// ROS_INFO("creatClstrMap");
 		minpt();
 	}
-    // publishPointCloud();
+    publishPointCloud();
     // clearMessages();
     
 }
@@ -37,29 +37,33 @@ void pointClass::minpt()
     // closest_point_.y = 0.0;
 
     // 初期値として一番近い点の距離を最大値に設定
-    closest_distance_ = 0;
+    closest_distance_ = std::numeric_limits<double>::infinity();
 
-for (int k = 0; k < Clstr.data.size(); k++)
+    closest_pt.pt.resize(Clstr.data.size());
+
+    for (int k = 0; k < Clstr.data.size(); k++)
     {
         for (int m = 0; m < Clstr.data[k].pt.size(); m++)
         {
-            x = Clstr.data[k].pt[m].x;
-            y = Clstr.data[k].pt[m].y;
-            z = Clstr.data[k].pt[m].z;
+            x_ = Clstr.data[k].pt[m].x;
+            y_ = Clstr.data[k].pt[m].y;
+            z_ = Clstr.data[k].pt[m].z;
             // これまでの一番近い点との距離を計算
-            double distance = std::sqrt(x * x + y * y + z * z);
+            double distance = std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
             // より近い点が見つかった場合、情報を更新
             if (distance < closest_distance_) 
             {
                 closest_distance_ = distance;
-                minx = x;
-                miny = y;
-                minz = z;
+                minx_ = x_;
+                miny_ = y_;
+                minz_ = z_;
             }
         }
-        // closest_pt.pt[k].x = minx;
-        // closest_pt.pt[k].y = miny;
-        // closest_pt.pt[k].z = minz;
+        ROS_INFO("%d, %f", k, minx_);
+        closest_distance_ = std::numeric_limits<double>::infinity();;
+        closest_pt.pt[k].x = minx_;
+        closest_pt.pt[k].y = miny_;
+        closest_pt.pt[k].z = minz_;
     }
 }
 
@@ -95,14 +99,14 @@ for (int k = 0; k < Clstr.data.size(); k++)
 
 // }
 
-// void pointClass::publishPointCloud()
-// {
-// //     pubpcloud_.publish(cloud);
-// //     // pubkd_.publish(closest_point);
-// //     pubrawcloud_.publish(pcloud);
-// //     // // 一番近い点の座標をパブリッシュ
-//     closest_point_pub_.publish(closest_pt);
-// }
+void pointClass::publishPointCloud()
+{
+//     pubpcloud_.publish(cloud);
+//     // pubkd_.publish(closest_point);
+//     pubrawcloud_.publish(pcloud);
+//     // // 一番近い点の座標をパブリッシュ
+    closest_point_pub_.publish(closest_pt);
+}
 
 // void pointClass::clearMessages()
 // {
