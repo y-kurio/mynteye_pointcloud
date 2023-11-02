@@ -40,6 +40,7 @@ void pointClass::minpt()
     closest_distance_ = std::numeric_limits<double>::infinity();
 
     closest_pt.pt.resize(Clstr.data.size());
+    closest_pt.distance.resize(Clstr.data.size());//追加
 
     for (int k = 0; k < Clstr.data.size(); k++)
     {
@@ -60,10 +61,11 @@ void pointClass::minpt()
             }
         }
         ROS_INFO("%d, %f", k, minx_);
-        closest_distance_ = std::numeric_limits<double>::infinity();;
+        closest_pt.distance[k] = closest_distance_;//追加
         closest_pt.pt[k].x = minx_;
         closest_pt.pt[k].y = miny_;
         closest_pt.pt[k].z = minz_;
+        closest_distance_ = std::numeric_limits<double>::infinity();;
     }
 }
 

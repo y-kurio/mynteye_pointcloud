@@ -14,7 +14,19 @@
 //msg
 #include <mynteye_pointcloud/ClassificationData.h>
 //データ型
-#include <mynteye_pointcloud/PointCloudData.h>
+#include <ros/ros.h>
+#include <ros/callback_queue.h>
+#include <pcl_ros/point_cloud.h>
+
+#include <geometry_msgs/Point.h>
+#include <std_msgs/Float64.h>
+#include <vector>
+#include <cmath>
+
+//msg
+#include <mynteye_pointcloud/ClassificationData.h>
+#include <mynteye_pointcloud/pointData.h>
+
 
 
 
@@ -22,11 +34,10 @@
 class RiskClass{
     private:
         ros::NodeHandle pnh;
-        //カメラデータ受診
 		ros::NodeHandle nh;
 		ros::Subscriber sub_close_point_;
-        //sensor_msgs::PointCloud2 rawPC2,PC2;
-        ros::Publisher Risk_pub_;
+        ros::Publisher Risk_pub_, pub_pan_, pub_tilt_;
+        mynteye_pointcloud::pointData Cluster_Minpts, Cluster_risk;
         dynamixel_sdk_examples::SetPosition pubPanData;
     public:
     //コンストラクタ：クラス定義に呼び出されるメソッド
@@ -41,5 +52,7 @@ class RiskClass{
         //--センサーデータ受信
         void close_point_callback(const sensor_msgs::PointCloud2ConstPtr& msg);
         void manage();
-        void publishPointCloud();//データ送信
+        void riskobject();
+        void pantilt_order();
+        void publish();//データ送信
 };
