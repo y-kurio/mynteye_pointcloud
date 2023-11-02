@@ -39,8 +39,8 @@ void pointClass::minpt()
     // 初期値として一番近い点の距離を最大値に設定
     closest_distance_ = std::numeric_limits<double>::infinity();
 
-    closest_pt.pt.resize(Clstr.data.size());
-    closest_pt.distance.resize(Clstr.data.size());//追加
+    Cluster_closest_pt.pt.resize(Clstr.data.size());
+    Cluster_closest_pt.distance.resize(Clstr.data.size());//追加
 
     for (int k = 0; k < Clstr.data.size(); k++)
     {
@@ -58,13 +58,16 @@ void pointClass::minpt()
                 minx_ = x_;
                 miny_ = y_;
                 minz_ = z_;
+                Cluster_closest_pt.Most_closest_pt.x = minx_;
+                Cluster_closest_pt.Most_closest_pt.y = miny_;
+                Cluster_closest_pt.Most_closest_pt.z = minz_;
             }
         }
-        ROS_INFO("%d, %f", k, minx_);
-        closest_pt.distance[k] = closest_distance_;//追加
-        closest_pt.pt[k].x = minx_;
-        closest_pt.pt[k].y = miny_;
-        closest_pt.pt[k].z = minz_;
+        // ROS_INFO("%d, %f", k, minx_);
+        Cluster_closest_pt.distance[k].data = closest_distance_;//追加
+        Cluster_closest_pt.pt[k].x = minx_;
+        Cluster_closest_pt.pt[k].y = miny_;
+        Cluster_closest_pt.pt[k].z = minz_;
         closest_distance_ = std::numeric_limits<double>::infinity();;
     }
 }
@@ -107,7 +110,8 @@ void pointClass::publishPointCloud()
 //     // pubkd_.publish(closest_point);
 //     pubrawcloud_.publish(pcloud);
 //     // // 一番近い点の座標をパブリッシュ
-    closest_point_pub_.publish(closest_pt);
+    closest_point_pub_.publish(Cluster_closest_pt);
+    // most_closest_point_pub_.publish(Most_closest_pt);
 }
 
 // void pointClass::clearMessages()

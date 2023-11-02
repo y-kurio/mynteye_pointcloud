@@ -1,2 +1,3 @@
 geometry_msgs/Point[] pt
-std_msgs/Float32[] distance
+geometry_msgs/Point Most_closest_pt
+std_msgs/Float64[] distance

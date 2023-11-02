@@ -61,8 +61,8 @@ add_message_files(
   ClusterData.msg
   ClassificationData.msg
   ClassificationElement.msg
-  pointData.msg
   pointElement.msg
+  pointData.msg
   SensorMapData.msg
   MaskImageData.msg
   synchronizedImage.msg
@@ -190,6 +190,12 @@ add_executable(${PROJECT_NAME}_cd # manage
   src/point/debug_main.cpp
   src/point/property.cpp
 )
+add_executable(${PROJECT_NAME}_rp # manage
+  src/Riskprediction/constructor.cpp
+  src/Riskprediction/method.cpp
+  src/Riskprediction/debug_main.cpp
+  src/Riskprediction/property.cpp
+)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_sc ${PROJECT_NAME}_generate_messages_cpp)
@@ -197,6 +203,7 @@ add_dependencies(${PROJECT_NAME}_si ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_frm ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_rp ${PROJECT_NAME}_generate_messages_cpp)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_gencfg)
 
@@ -206,6 +213,7 @@ target_link_libraries(${PROJECT_NAME}_si ${catkin_LIBRARIES} ${OpenCV_LIBRARIES}
 target_link_libraries(${PROJECT_NAME}_frm ${catkin_LIBRARIES} ) # manege 
 target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
+target_link_libraries(${PROJECT_NAME}_rp ${catkin_LIBRARIES} )
 
 #############
 ## Install ##

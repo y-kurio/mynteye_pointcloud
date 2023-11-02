@@ -35,10 +35,12 @@ class RiskClass{
     private:
         ros::NodeHandle pnh;
 		ros::NodeHandle nh;
-		ros::Subscriber sub_close_point_;
+		ros::Subscriber sub_Cluster_closest_point;
         ros::Publisher Risk_pub_, pub_pan_, pub_tilt_;
         mynteye_pointcloud::pointData Cluster_Minpts, Cluster_risk;
         dynamixel_sdk_examples::SetPosition pubPanData;
+        double most_Cluster_theta;
+        int pan_tilt_order;
     public:
     //コンストラクタ：クラス定義に呼び出されるメソッド
         RiskClass();
@@ -50,9 +52,10 @@ class RiskClass{
         void setLaunchParam();//launchファイルから書き込み
         //in methods.cpp
         //--センサーデータ受信
-        void close_point_callback(const sensor_msgs::PointCloud2ConstPtr& msg);
+        void Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
         void manage();
         void riskobject();
+        double Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
         void pantilt_order();
         void publish();//データ送信
 };

@@ -31,7 +31,8 @@ class pointClass{
 		ros::NodeHandle nh;
 		ros::Subscriber sub_point_, point_sub_;
         //sensor_msgs::PointCloud2 rawPC2,PC2;
-        mynteye_pointcloud::pointData closest_pt;
+        mynteye_pointcloud::pointData Cluster_closest_pt;
+        geometry_msgs::Point Most_closest_pt;
         double closest_distance_;
         //点群データ
         pcl::PointCloud<pcl::PointXYZ> pcloud;
@@ -39,7 +40,7 @@ class pointClass{
         // pcl::PointCloud<pcl::PointXYZ> closest_point;
         mynteye_pointcloud::PointCloudData cloud;
         //カメラ変換データ送信
-        ros::Publisher pubpcloud_, pubrawcloud_, pubkd_, closest_point_pub_;
+        ros::Publisher pubpcloud_, pubrawcloud_, pubkd_, closest_point_pub_, most_closest_point_pub_;
         double x_,y_,z_;
         double minx_, miny_, minz_;
         double EXTRACT_XMIN = -std::numeric_limits<double>::infinity(), 
