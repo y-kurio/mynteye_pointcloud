@@ -4,6 +4,8 @@ void RiskClass::Cluster_closest_pointcallback(const mynteye_pointcloud::pointDat
 {
     Cluster_Minpts = *msg;
     manage();
+
+    // 以降の処理で value を使用
 }
 
 void RiskClass::manage()
@@ -34,14 +36,23 @@ void RiskClass::riskobject()
 
 void RiskClass::pantilt_order()
 {
-    int pan_order_ = int((most_Cluster_theta*11.6)+2048);
+    static bool initialized = false;
+    static int Cur_pan_tilt_order;
+
+    if (!initialized) {
+        // 初回のコールバック時のみ初期値を設定
+        Cur_pan_tilt_order = 2048; // 例として 42.0 という初期値を設定
+        initialized = true;
+    }
+    int pan_order_ = int((most_Cluster_theta*11.6)+Cur_pan_tilt_order);
     if (pan_order_ < 2602 && pan_order_ > 1477) 
             {
                 pan_tilt_order = pan_order_;
-                // ROS_INFO("order = %f", pan_tilt_order);
+                ROS_INFO("order = %f", pan_tilt_order);
             }
     pubPanData.id = 2;
     pubPanData.position = pan_tilt_order;
+    Cur_pan_tilt_order = pan_tilt_order;
 }
 
 void RiskClass::publish()
