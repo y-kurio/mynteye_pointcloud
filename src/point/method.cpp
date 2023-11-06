@@ -38,6 +38,7 @@ void pointClass::minpt()
 
     // 初期値として一番近い点の距離を最大値に設定
     closest_distance_ = std::numeric_limits<double>::infinity();
+    min_closest_distance_ = std::numeric_limits<double>::infinity();
 
     Cluster_closest_pt.pt.resize(Clstr.data.size());
     Cluster_closest_pt.distance.resize(Clstr.data.size());//追加
@@ -58,17 +59,23 @@ void pointClass::minpt()
                 minx_ = x_;
                 miny_ = y_;
                 minz_ = z_;
-                Cluster_closest_pt.Most_closest_pt.x = minx_;
-                Cluster_closest_pt.Most_closest_pt.y = miny_;
-                Cluster_closest_pt.Most_closest_pt.z = minz_;
             }
         }
-        // ROS_INFO("%d, %f", k, minx_);
         Cluster_closest_pt.distance[k].data = closest_distance_;//追加
         Cluster_closest_pt.pt[k].x = minx_;
         Cluster_closest_pt.pt[k].y = miny_;
         Cluster_closest_pt.pt[k].z = minz_;
+        // ROS_INFO("%d, %f", k, Cluster_closest_pt.pt[k].y);
         closest_distance_ = std::numeric_limits<double>::infinity();;
+        double min_distance = Cluster_closest_pt.distance[k].data;
+        if (min_distance < min_closest_distance_) 
+        {
+            min_closest_distance_ = min_distance;
+            Cluster_closest_pt.Most_closest_pt.x = Cluster_closest_pt.pt[k].x;
+            Cluster_closest_pt.Most_closest_pt.y = Cluster_closest_pt.pt[k].y;
+            Cluster_closest_pt.Most_closest_pt.z = Cluster_closest_pt.pt[k].z;
+        }
+        // ROS_INFO("%f", Cluster_closest_pt.Most_closest_pt.y);
     }
 }
 

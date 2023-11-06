@@ -8,6 +8,7 @@ void RiskClass::Cluster_closest_pointcallback(const mynteye_pointcloud::pointDat
     // 以降の処理で value を使用
 }
 
+
 void RiskClass::manage()
 {
     riskobject();
@@ -31,24 +32,24 @@ void RiskClass::riskobject()
     //     }
     // }
     most_Cluster_theta = 90-(Cluster_ang(Cluster_Minpts.Most_closest_pt.x, Cluster_Minpts.Most_closest_pt.y)/3.14159265358972323*180);
-    // ROS_INFO("%f", most_Cluster_theta);
+    ROS_INFO("%f,   x=%f,   y=%f", most_Cluster_theta, Cluster_Minpts.Most_closest_pt.x, Cluster_Minpts.Most_closest_pt.y);
 }
 
 void RiskClass::pantilt_order()
 {
     static bool initialized = false;
     static int Cur_pan_tilt_order;
-
     if (!initialized) {
         // 初回のコールバック時のみ初期値を設定
         Cur_pan_tilt_order = 2048; // 例として 42.0 という初期値を設定
         initialized = true;
     }
-    int pan_order_ = int((most_Cluster_theta*11.6)+Cur_pan_tilt_order);
+    // ROS_INFO("pan_order = %d", Cur_pan_tilt_order);
+    int pan_order_ = (most_Cluster_theta*11.6)+Cur_pan_tilt_order;
     if (pan_order_ < 2602 && pan_order_ > 1477) 
             {
                 pan_tilt_order = pan_order_;
-                ROS_INFO("order = %f", pan_tilt_order);
+                ROS_INFO("order = %d", pan_tilt_order);
             }
     pubPanData.id = 2;
     pubPanData.position = pan_tilt_order;

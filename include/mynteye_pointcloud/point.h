@@ -33,7 +33,7 @@ class pointClass{
         //sensor_msgs::PointCloud2 rawPC2,PC2;
         mynteye_pointcloud::pointData Cluster_closest_pt;
         geometry_msgs::Point Most_closest_pt;
-        double closest_distance_;
+        double closest_distance_, min_closest_distance_;
         //点群データ
         pcl::PointCloud<pcl::PointXYZ> pcloud;
         mynteye_pointcloud::ClassificationData Clstr;
