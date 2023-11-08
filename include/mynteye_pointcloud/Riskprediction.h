@@ -53,6 +53,7 @@ class RiskClass{
         //in methods.cpp
         //--センサーデータ受信
         void Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
+        void mainloop();
         void manage();
         void riskobject();
         double Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
