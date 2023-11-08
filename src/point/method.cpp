@@ -32,16 +32,12 @@ bool pointClass::isClstr(){//curClstrのデータの有無
 
 void pointClass::minpt()
 {
-    // 初期値として一番近い点の位置をゼロに設定
-    // closest_point_.x = 0.0;
-    // closest_point_.y = 0.0;
-
     // 初期値として一番近い点の距離を最大値に設定
     closest_distance_ = std::numeric_limits<double>::infinity();
     min_closest_distance_ = std::numeric_limits<double>::infinity();
 
     Cluster_closest_pt.pt.resize(Clstr.data.size());
-    Cluster_closest_pt.distance.resize(Clstr.data.size());//追加
+    Cluster_closest_pt.distance.resize(Clstr.data.size());
 
     for (int k = 0; k < Clstr.data.size(); k++)
     {
@@ -53,20 +49,21 @@ void pointClass::minpt()
             // これまでの一番近い点との距離を計算
             double distance = std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
             // より近い点が見つかった場合、情報を更新
-            if (distance < closest_distance_) 
+            if (distance < closest_distance_) //距離をもとに各クラスタの最近距離の座標を求める
             {
                 closest_distance_ = distance;
                 minx_ = x_;
                 miny_ = y_;
                 minz_ = z_;
             }
+            //各クラスタで最も近い点の距離と座標を代入
+            Cluster_closest_pt.distance[k].data = closest_distance_;
+            Cluster_closest_pt.pt[k].x = minx_;
+            Cluster_closest_pt.pt[k].y = miny_;
+            Cluster_closest_pt.pt[k].z = minz_;
+            // ROS_INFO("%d, %f", k, Cluster_closest_pt.pt[k].y);
         }
-        Cluster_closest_pt.distance[k].data = closest_distance_;//追加
-        Cluster_closest_pt.pt[k].x = minx_;
-        Cluster_closest_pt.pt[k].y = miny_;
-        Cluster_closest_pt.pt[k].z = minz_;
-        // ROS_INFO("%d, %f", k, Cluster_closest_pt.pt[k].y);
-        closest_distance_ = std::numeric_limits<double>::infinity();;
+        closest_distance_ = std::numeric_limits<double>::infinity();;//次の配列データのために一度初期値を無限に設定
         double min_distance = Cluster_closest_pt.distance[k].data;
         if (min_distance < min_closest_distance_) 
         {
