@@ -51,7 +51,7 @@ void RiskClass::pantilt_order()
     ROS_INFO("order = %d", Cur_pan_tilt_order);
     // if (pan_order_ < 2602 && pan_order_ > 1477) 
     //     {
-            if(pan_order_ < 2602 && pan_order_ > 2545)
+            if(pan_order_ > 2545)
             {
                 pan_tilt_order = 2602;
             }
@@ -91,13 +91,9 @@ void RiskClass::pantilt_order()
             {
                 pan_tilt_order = 1590;
             }
-            else if(pan_order_ < 1542 && pan_order_ > 1477)
+            else if(pan_order_ < 1542)
             {
                 pan_tilt_order = 1477;
-            }
-            else
-            {
-                pan_tilt_order = 2048;
             }
             // pan_tilt_order = pan_order_;
         // }
