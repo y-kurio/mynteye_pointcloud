@@ -4,6 +4,7 @@ void RiskClass::Cluster_closest_pointcallback(const mynteye_pointcloud::pointDat
 {
     Cluster_Minpts = *msg;
     mainloop();
+    //manage();
 
     // 以降の処理で value を使用
 }
