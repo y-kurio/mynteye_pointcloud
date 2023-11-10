@@ -52,54 +52,54 @@ void RiskClass::pantilt_order()
     ROS_INFO("order = %d", Cur_pan_tilt_order);
     // if (pan_order_ < 2602 && pan_order_ > 1477) 
     //     {
-            if(pan_order_ < 2602 && pan_order_ > 2545)
-            {
-                pan_tilt_order = 2602;
-            }
-            else if(pan_order_ < 2546 && pan_order_ > 2430)
-            {
-                pan_tilt_order = 2489;
-            }
-            else if(pan_order_ < 2431 && pan_order_ > 2315)
-            {
-                pan_tilt_order = 2376;
-            }
-            else if(pan_order_ < 2316 && pan_order_ > 2210)
-            {
-                pan_tilt_order = 2263;
-            }
-            else if(pan_order_ < 2211 && pan_order_ > 2100)
-            {
-                pan_tilt_order = 2150;
-            }
-            else if(pan_order_ < 2101 && pan_order_ > 1985)
-            {
-                pan_tilt_order = 2048;
-            }
-            else if(pan_order_ < 1986 && pan_order_ > 1875)
-            {
-                pan_tilt_order = 1932;
-            }
-            else if(pan_order_ < 1876 && pan_order_ > 1765)
-            {
-                pan_tilt_order = 1818;
-            }
-            else if(pan_order_ < 1876 && pan_order_ > 1765)
-            {
-                pan_tilt_order = 1705;
-            }
-            else if(pan_order_ < 1656 && pan_order_ > 1541)
-            {
-                pan_tilt_order = 1590;
-            }
-            else if(pan_order_ < 1542 && pan_order_ > 1477)
-            {
-                pan_tilt_order = 1477;
-            }
-            else
-            {
-                pan_tilt_order = 2048;
-            }
+        if(pan_order_ < 2602 && pan_order_ > 2545)
+        {
+            pan_tilt_order = 2602;
+        }
+        else if(pan_order_ < 2546 && pan_order_ > 2430)
+        {
+            pan_tilt_order = 2489;
+        }
+        else if(pan_order_ < 2431 && pan_order_ > 2315)
+        {
+            pan_tilt_order = 2376;
+        }
+        else if(pan_order_ < 2316 && pan_order_ > 2210)
+        {
+            pan_tilt_order = 2263;
+        }
+        else if(pan_order_ < 2211 && pan_order_ > 2100)
+        {
+            pan_tilt_order = 2150;
+        }
+        else if(pan_order_ < 2101 && pan_order_ > 1985)
+        {
+            pan_tilt_order = 2048;
+        }
+        else if(pan_order_ < 1986 && pan_order_ > 1875)
+        {
+            pan_tilt_order = 1932;
+        }
+        else if(pan_order_ < 1876 && pan_order_ > 1765)
+        {
+            pan_tilt_order = 1818;
+        }
+        else if(pan_order_ < 1876 && pan_order_ > 1765)
+        {
+            pan_tilt_order = 1705;
+        }
+        else if(pan_order_ < 1656 && pan_order_ > 1541)
+        {
+            pan_tilt_order = 1590;
+        }
+        else if(pan_order_ < 1542 && pan_order_ > 1477)
+        {
+            pan_tilt_order = 1477;
+        }
+        else
+        {
+            pan_tilt_order = 2048;
+        }
             // pan_tilt_order = pan_order_;
         // }
     // else
