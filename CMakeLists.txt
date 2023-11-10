@@ -66,6 +66,7 @@ add_message_files(
   SensorMapData.msg
   MaskImageData.msg
   synchronizedImage.msg
+  SetAngle.msg
 )
 
 ## Generate services in the 'srv' folder

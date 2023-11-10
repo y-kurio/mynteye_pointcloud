@@ -26,6 +26,7 @@
 //msg
 #include <mynteye_pointcloud/ClassificationData.h>
 #include <mynteye_pointcloud/pointData.h>
+#include <mynteye_pointcloud/SetAngle.h>
 
 
 
@@ -33,30 +34,29 @@
 //クラスの定義
 class RiskClass{
     private:
-        ros::NodeHandle pnh;
-		ros::NodeHandle nh;
-		ros::Subscriber sub_Cluster_closest_point;
-        ros::Publisher Risk_pub_, pub_pan_, pub_tilt_;
-        mynteye_pointcloud::pointData Cluster_Minpts, Cluster_risk;
-        dynamixel_sdk_examples::SetPosition pubPanData;
-        double most_Cluster_theta;
-        int pan_tilt_order;
+        ros::NodeHandle pnh_;
+		ros::NodeHandle nh_;
+		// ros::Subscriber sub_Cluster_closest_point_;
+        ros::Subscriber sub_angle_;
+        ros::Publisher pub_psition_;
+        // mynteye_pointcloud::pointData Cluster_Minpts_, Cluster_risk_;
+        dynamixel_sdk_examples::SetPosition pubPanData_;
+        double most_Cluster_theta_;
+        // int pan_tilt_order_;
+        mynteye_pointcloud::SetAngle camera_angle_;
+
+        void __angle_callback(const mynteye_pointcloud::SetAngle& msg);
+        void __setLaunchParam();
+        // void __Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
+        // void __manage();
+        void __riskobject();
+        // double __Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
+        void __pantilt_order();
+        void __publish();//データ送信
+
     public:
-    //コンストラクタ：クラス定義に呼び出されるメソッド
         RiskClass();
-        //デストラクタ：クラスが消滅するときに呼びだされるメソッド
         ~RiskClass();
-        //メソッド：関数のようなもの:後でlaunchファイルからの読み込みメソッドを追加
-        //in property.cpp
-        //セット：内部パラメータの書き込み
-        void setLaunchParam();//launchファイルから書き込み
-        //in methods.cpp
-        //--センサーデータ受信
-        void Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
         void mainloop();
-        void manage();
-        void riskobject();
-        double Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
-        void pantilt_order();
-        void publish();//データ送信
+        
 };
