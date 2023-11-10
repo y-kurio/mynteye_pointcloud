@@ -24,7 +24,7 @@
 #include <cmath>
 
 //msg
-#include <mynteye_pointcloud/ClassificationData.h>
+// #include <mynteye_pointcloud/ClassificationData.h>
 #include <mynteye_pointcloud/pointData.h>
 #include <mynteye_pointcloud/SetAngle.h>
 
