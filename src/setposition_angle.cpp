@@ -20,25 +20,24 @@ void __angle_callback(const mynteye_pointcloud::SetAngle& msg)
 } 
 
 int main(int argc,char **argv){
-	
-    pnh_.getParam("IS_MOVING",HZ);
-    ros::Rate loop_rate(HZ);
-    while (ros::ok())
-    {
-    ros::init(argc,argv,"setposition_angle");
+	ros::init(argc,argv,"setposition_angle");
     ros::NodeHandle pnh_;
     ros::NodeHandle nh_;
     ros::Subscriber sub_angle_;
     ros::Publisher pub_psition_;
+    sub_angle_ =nh_.subscribe("set_angle",1,&RiskClass::__angle_callback,this);
+    pub_psition_=nh_.advertise<dynamixel_sdk_examples::SetPosition>("set_position",1);
     dynamixel_sdk_examples::SetPosition pubPanData_;
     double most_Cluster_theta_;
     mynteye_pointcloud::SetAngle camera_angle_;
+    pnh_.getParam("IS_MOVING",HZ);
+    ros::Rate loop_rate(50);
+    while (ros::ok())
+    {
     most_Cluster_theta_ = (camera_angle_.angle)/M_PI*180;
     pubPanData_.id = camera_angle_.id;
     pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
     pub_psition_.publish(pubPanData_);
-    sub_angle_ =nh_.subscribe("set_angle",1,&RiskClass::__angle_callback,this);
-    pub_psition_=nh_.advertise<dynamixel_sdk_examples::SetPosition>("set_position",1);
         ros::spinOnce();
         loop_rate.sleep();
     }
