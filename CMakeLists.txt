@@ -197,6 +197,15 @@ add_executable(${PROJECT_NAME}_rp # manage
   src/Riskprediction/debug_main.cpp
   src/Riskprediction/property.cpp
 )
+add_executable(${PROJECT_NAME}_po # manage
+  src/pan_order/constructor.cpp
+  src/pan_order/method.cpp
+  src/pan_order/debug_main.cpp
+  src/pan_order/property.cpp
+)
+#add_executable(${PROJECT_NAME}_sa # manage
+#  src/setposition_angle.cpp
+#)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_sc ${PROJECT_NAME}_generate_messages_cpp)
@@ -205,6 +214,8 @@ add_dependencies(${PROJECT_NAME}_frm ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_pc ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_rp ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_po ${PROJECT_NAME}_generate_messages_cpp)
+#add_dependencies(${PROJECT_NAME}_sa ${PROJECT_NAME}_generate_messages_cpp)
 
 add_dependencies(${PROJECT_NAME}_cc ${PROJECT_NAME}_gencfg)
 
@@ -215,6 +226,8 @@ target_link_libraries(${PROJECT_NAME}_frm ${catkin_LIBRARIES} ) # manege
 target_link_libraries(${PROJECT_NAME}_pc ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_rp ${catkin_LIBRARIES} )
+target_link_libraries(${PROJECT_NAME}_po ${catkin_LIBRARIES} )
+#target_link_libraries(${PROJECT_NAME}_sa ${catkin_LIBRARIES} )
 
 #############
 ## Install ##

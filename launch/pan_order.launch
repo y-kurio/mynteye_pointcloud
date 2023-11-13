@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="mynteye_pointcloud" type="mynteye_pointcloud_po" name="mynteye_pointcloud_po" output="screen">
+    </node>
+</launch>

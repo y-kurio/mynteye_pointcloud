@@ -32,31 +32,25 @@
 
 
 //クラスの定義
-class RiskClass{
+class OrderClass{
     private:
         ros::NodeHandle pnh_;
 		ros::NodeHandle nh_;
-		ros::Subscriber sub_Cluster_closest_point_;
         ros::Subscriber sub_angle_;
         ros::Publisher pub_psition_;
-        mynteye_pointcloud::pointData Cluster_Minpts_, Cluster_risk_;
         dynamixel_sdk_examples::SetPosition pubPanData_;
         double most_Cluster_theta_;
-        // int pan_tilt_order_;
         mynteye_pointcloud::SetAngle camera_angle_;
 
         void __angle_callback(const mynteye_pointcloud::SetAngle& msg);
         void __setLaunchParam();
-        void __Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
-        // void __manage();
         void __riskobject();
-        double __Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
         void __pantilt_order();
         void __publish();//データ送信
 
     public:
-        RiskClass();
-        ~RiskClass();
+        OrderClass();
+        ~OrderClass();
         void mainloop();
         
 };
