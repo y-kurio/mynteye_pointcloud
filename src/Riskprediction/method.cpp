@@ -32,7 +32,8 @@ void RiskClass::__pantilt_order()
 {
     static bool initialized = false;
     static double delta_theta;
-    static double cluster_delta_theta;
+    // static double cluster_delta_theta;
+    cluster_delta_theta = __Cluster_ang(Cluster_Minpts_.Most_closest_pt.x, Cluster_Minpts_.Most_closest_pt.y);
     if (!initialized) {
         // 初回のコールバック時のみ初期値を設定
         delta_theta = 0; // ロボットの正面の指令値
@@ -42,19 +43,18 @@ void RiskClass::__pantilt_order()
     Cluster_risk_ = Cluster_Minpts_;
     Cluster_risk_.pt.resize(Cluster_Minpts_.pt.size());
     Cluster_risk_.distance.resize(Cluster_Minpts_.distance.size());
-    ROS_INFO("syokiti: %f",cluster_delta_theta);
+    // ROS_INFO("syokiti: %f",cluster_delta_theta);
     double object_x = 0;
     double object_y = 0;
     ROS_INFO("pre_delta_theta: %f",delta_theta);
-    object_x = Cluster_Minpts_.Most_closest_pt.x*cos(delta_theta + cluster_delta_theta) - Cluster_Minpts_.Most_closest_pt.y*sin(delta_theta + cluster_delta_theta);
-    object_y = Cluster_Minpts_.Most_closest_pt.y*cos(delta_theta + cluster_delta_theta) + Cluster_Minpts_.Most_closest_pt.x*sin(delta_theta + cluster_delta_theta);
+    object_x = Cluster_Minpts_.Most_closest_pt.x*cos(-delta_theta) - Cluster_Minpts_.Most_closest_pt.y*sin(-delta_theta);
+    object_y = Cluster_Minpts_.Most_closest_pt.y*cos(-delta_theta) + Cluster_Minpts_.Most_closest_pt.x*sin(-delta_theta);
     most_Cluster_theta_ = (__Cluster_ang(object_x, object_y)/3.14159265358972323*180);
     pubPanData_.id = 2;
     // pubPanData_.position = pan_tilt_order_;
     pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
     delta_theta = __Cluster_ang(object_x, object_y);
     ROS_INFO("cur_delta_theta: %f",delta_theta);
-    cluster_delta_theta = __Cluster_ang(Cluster_Minpts_.Most_closest_pt.x, Cluster_Minpts_.Most_closest_pt.y);
     // ROS_INFO("id: %d, position: %f, angle: %f",pubPanData_.id, pubPanData_.position, (double)camera_angle_.angle);
     // std::cout<< camera_angle_.angle << " "  << most_Cluster_theta_<< " "<< pubPanData_.position << " " << pubPanData_.id <<std::endl;
     
