@@ -52,13 +52,19 @@ void RiskClass::__pantilt_order()
             // pubPanData_.position = pan_tilt_order_;
             pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
         }
-    else if(most_Cluster_theta_ > 0.83)
+    else
         {
-            pubPanData_.position = 2602;
+            pubPanData_.id = 2;
+            // pubPanData_.position = pan_tilt_order_;
+            pubPanData_.position = 2048;
         }
-    else if(most_Cluster_theta_ < -0.83)
+    if (most_Cluster_theta_ < 0.84 && most_Cluster_theta_ > -0.84) 
         {
-            pubPanData_.position = 1477;
+            delta_theta = __Cluster_ang(object_x, object_y);
+        }
+    else
+        {
+            delta_theta = 0;
         }
     delta_theta = __Cluster_ang(object_x, object_y);
     ROS_INFO("cur_delta_theta: %f",delta_theta/3.14159265358972323*180);
