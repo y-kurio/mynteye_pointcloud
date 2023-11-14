@@ -51,17 +51,25 @@ void RiskClass::__pantilt_order()
             pubPanData_.id = 2;
             // pubPanData_.position = pan_tilt_order_;
             pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
+            delta_theta = __Cluster_ang(object_x, object_y);
         }
-    else if(most_Cluster_theta_ > 0.83)
+    else
         {
-            pubPanData_.position = 2602;
+            pubPanData_.id = 2;
+            // pubPanData_.position = pan_tilt_order_;
+            pubPanData_.position = 2048;
+            delta_theta = 0;
         }
-    else if(most_Cluster_theta_ < -0.83)
-        {
-            pubPanData_.position = 1477;
-        }
-    delta_theta = __Cluster_ang(object_x, object_y);
+    // else if(most_Cluster_theta_ > 0.83)
+    //     {
+    //         pubPanData_.position = 2602;
+    //     }
+    // else if(most_Cluster_theta_ < -0.83)
+    //     {
+    //         pubPanData_.position = 1477;
+    //     }
     ROS_INFO("cur_delta_theta: %f",delta_theta/3.14159265358972323*180);
+    ROS_INFO("pan_order: %d",pubPanData_.position);
     // ROS_INFO("id: %d, position: %f, angle: %f",pubPanData_.id, pubPanData_.position, (double)camera_angle_.angle);
     // std::cout<< camera_angle_.angle << " "  << most_Cluster_theta_<< " "<< pubPanData_.position << " " << pubPanData_.id <<std::endl;
     
