@@ -45,18 +45,19 @@ class RiskClass{
         // int pan_tilt_order_;
         mynteye_pointcloud::SetAngle camera_angle_;
 
-        void __angle_callback(const mynteye_pointcloud::SetAngle& msg);
-        void __setLaunchParam();
-        void __Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
-        // void __manage();
-        void __riskobject();
-        double __Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
-        void __pantilt_order();
-        void __publish();//データ送信
+        
 
     public:
         RiskClass();
         ~RiskClass();
-        void mainloop();
+        void __angle_callback(const mynteye_pointcloud::SetAngle& msg);
+        void __setLaunchParam();
+        void __Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
+        void __manage();
+        void __riskobject();
+        double __Cluster_ang(double& Cluster_position_x, double& Cluster_position_y);
+        void __pantilt_order();
+        void __publish();//データ送信
+        // void mainloop();
         
 };
