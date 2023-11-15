@@ -8,7 +8,7 @@ void OrderClass::__angle_callback(const mynteye_pointcloud::SetAngle& msg)
 
 void OrderClass::mainloop()
 {
-    ros::Rate loop_rate(50);
+    ros::Rate loop_rate(1);
 	while (ros::ok())
 	{
         __riskobject();

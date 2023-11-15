@@ -3,15 +3,28 @@
 void RiskClass::__Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg)
 {
     Cluster_Minpts_ = *msg;
-    __manage();
+    // __manage();
 }
 
-void RiskClass::__manage()
+void RiskClass::mainloop()
 {
-    // __riskobject();
-    __pantilt_order();
-    __publish();
+    ros::Rate loop_rate(1);
+	while (ros::ok())
+	{
+        // __riskobject();
+        __pantilt_order();
+        __publish();
+		ros::spinOnce();
+		loop_rate.sleep();
+	}
 }
+
+// void RiskClass::__manage()
+// {
+//     // __riskobject();
+//     __pantilt_order();
+//     __publish();
+// }
 
 // void RiskClass::__riskobject()
 // {
@@ -50,14 +63,16 @@ void RiskClass::__pantilt_order()
             most_Cluster_theta_ = (__Cluster_ang(object_x, object_y)/3.14159265358972323*180);
             pubPanData_.id = 2;
             // pubPanData_.position = pan_tilt_order_;
-            pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
+            // pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
             delta_theta = __Cluster_ang(object_x, object_y);
+            pubPanData_.angle = delta_theta;
         }
     else
         {
             pubPanData_.id = 2;
             // pubPanData_.position = pan_tilt_order_;
-            pubPanData_.position = 2048;
+            // pubPanData_.position = 2048;
+            pubPanData_.angle = 0;
             delta_theta = 0;
         }
     // else if(most_Cluster_theta_ > 0.83)
@@ -69,7 +84,7 @@ void RiskClass::__pantilt_order()
     //         pubPanData_.position = 1477;
     //     }
     ROS_INFO("cur_delta_theta: %f",delta_theta/3.14159265358972323*180);
-    ROS_INFO("pan_order: %d",pubPanData_.position);
+    ROS_INFO("pan_order: %f",pubPanData_.angle);
     // ROS_INFO("id: %d, position: %f, angle: %f",pubPanData_.id, pubPanData_.position, (double)camera_angle_.angle);
     // std::cout<< camera_angle_.angle << " "  << most_Cluster_theta_<< " "<< pubPanData_.position << " " << pubPanData_.id <<std::endl;
     
