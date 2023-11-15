@@ -3,28 +3,28 @@
 void RiskClass::__Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg)
 {
     Cluster_Minpts_ = *msg;
-    // __manage();
+    __manage();
 }
 
-void RiskClass::mainloop()
-{
-    ros::Rate loop_rate(1);
-	while (ros::ok())
-	{
-        // __riskobject();
-        __pantilt_order();
-        __publish();
-		ros::spinOnce();
-		loop_rate.sleep();
-	}
-}
-
-// void RiskClass::__manage()
+// void RiskClass::mainloop()
 // {
-//     // __riskobject();
-//     __pantilt_order();
-//     __publish();
+//     ros::Rate loop_rate(1);
+// 	while (ros::ok())
+// 	{
+//         // __riskobject();
+//         __pantilt_order();
+//         __publish();
+// 		ros::spinOnce();
+// 		loop_rate.sleep();
+// 	}
 // }
+
+void RiskClass::__manage()
+{
+    // __riskobject();
+    __pantilt_order();
+    __publish();
+}
 
 // void RiskClass::__riskobject()
 // {

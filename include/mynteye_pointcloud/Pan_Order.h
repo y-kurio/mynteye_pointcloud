@@ -43,6 +43,7 @@ class OrderClass{
         mynteye_pointcloud::SetAngle camera_angle_;
 
         void __angle_callback(const mynteye_pointcloud::SetAngle& msg);
+        void __manage();
         void __setLaunchParam();
         void __riskobject();
         void __pantilt_order();

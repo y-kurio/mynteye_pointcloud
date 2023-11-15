@@ -3,22 +3,28 @@
 void OrderClass::__angle_callback(const mynteye_pointcloud::SetAngle& msg)
 {
     camera_angle_ = msg;
-    
+    __manage();
 }
 
-void OrderClass::mainloop()
+// void OrderClass::mainloop()
+// {
+//     ros::Rate loop_rate(1);
+// 	while (ros::ok())
+// 	{
+//         __riskobject();
+//         __pantilt_order();
+//         __publish();
+// 		ros::spinOnce();
+// 		loop_rate.sleep();
+// 	}
+// }
+
+void OrderClass::__manage()
 {
-    ros::Rate loop_rate(1);
-	while (ros::ok())
-	{
-        __riskobject();
-        __pantilt_order();
-        __publish();
-		ros::spinOnce();
-		loop_rate.sleep();
-	}
+    __riskobject();
+    __pantilt_order();
+    __publish();
 }
-
 
 void OrderClass::__riskobject()
 {
