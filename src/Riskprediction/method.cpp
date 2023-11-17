@@ -54,17 +54,61 @@ void RiskClass::__pantilt_order()
     // ROS_INFO("syokiti: %f",cluster_delta_theta);
     double object_x = 0;
     double object_y = 0;
-    ROS_INFO("pre_delta_theta: %f",delta_theta/3.14159265358972323*180);
+    // ROS_INFO("pre_delta_theta: %f",delta_theta/3.14159265358972323*180);
     object_x = Cluster_Minpts_.Most_closest_pt.x*cos(-delta_theta) - Cluster_Minpts_.Most_closest_pt.y*sin(-delta_theta);
     object_y = Cluster_Minpts_.Most_closest_pt.y*cos(-delta_theta) + Cluster_Minpts_.Most_closest_pt.x*sin(-delta_theta);
     most_Cluster_theta_ = __Cluster_ang(object_x, object_y);
-    if (most_Cluster_theta_ < 0.84 && most_Cluster_theta_ > -0.84) 
+    if (most_Cluster_theta_ < 0.87 && most_Cluster_theta_ > -0.87) 
         {
-            most_Cluster_theta_ = (__Cluster_ang(object_x, object_y)/3.14159265358972323*180);
+            int pan_order_ = ((most_Cluster_theta_/3.14159265358972323*180)*11.6)+2048;
+            if(pan_order_ < 2602 && pan_order_ > 2545)
+            {
+                delta_theta = 0.872;
+            }
+            else if(pan_order_ < 2546 && pan_order_ > 2430)
+            {
+                delta_theta = 0.698;
+            }
+            else if(pan_order_ < 2431 && pan_order_ > 2315)
+            {
+                delta_theta = 0.523;
+            }
+            else if(pan_order_ < 2316 && pan_order_ > 2210)
+            {
+                delta_theta = 0.349;
+            }
+            else if(pan_order_ < 2211 && pan_order_ > 2100)
+            {
+                delta_theta = 0.175;
+            }
+            else if(pan_order_ < 2101 && pan_order_ > 1985)
+            {
+                delta_theta = 0;
+            }
+            else if(pan_order_ < 1986 && pan_order_ > 1875)
+            {
+                delta_theta = -0.175;
+            }
+            else if(pan_order_ < 1876 && pan_order_ > 1765)
+            {
+                delta_theta = -0.349;
+            }
+            else if(pan_order_ < 1876 && pan_order_ > 1765)
+            {
+                delta_theta = -0.523;
+            }
+            else if(pan_order_ < 1656 && pan_order_ > 1541)
+            {
+                delta_theta = -0.698;
+            }
+            else if(pan_order_ < 1542 && pan_order_ > 1477)
+            {
+                delta_theta = -0.872;
+            }
+            // most_Cluster_theta_ = (__Cluster_ang(object_x, object_y)/3.14159265358972323*180);
             pubPanData_.id = 2;
             // pubPanData_.position = pan_tilt_order_;
             // pubPanData_.position = int((most_Cluster_theta_*11.6) + 2048);
-            delta_theta = __Cluster_ang(object_x, object_y);
             pubPanData_.angle = delta_theta;
         }
     else
@@ -75,6 +119,7 @@ void RiskClass::__pantilt_order()
             pubPanData_.angle = 0;
             delta_theta = 0;
         }
+        ROS_INFO("pan_order_seisuu: %f",((delta_theta/3.14159265358972323*180)*11.6)+2048);
     // else if(most_Cluster_theta_ > 0.83)
     //     {
     //         pubPanData_.position = 2602;
@@ -83,8 +128,8 @@ void RiskClass::__pantilt_order()
     //     {
     //         pubPanData_.position = 1477;
     //     }
-    ROS_INFO("cur_delta_theta: %f",delta_theta/3.14159265358972323*180);
-    ROS_INFO("pan_order: %f",pubPanData_.angle);
+    // ROS_INFO("cur_delta_theta: %f",delta_theta/3.14159265358972323*180);
+    // ROS_INFO("pan_order: %f",pubPanData_.angle);
     // ROS_INFO("id: %d, position: %f, angle: %f",pubPanData_.id, pubPanData_.position, (double)camera_angle_.angle);
     // std::cout<< camera_angle_.angle << " "  << most_Cluster_theta_<< " "<< pubPanData_.position << " " << pubPanData_.id <<std::endl;
     
