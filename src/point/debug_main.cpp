@@ -6,6 +6,7 @@ int main(int argc,char **argv){
 
     pointClass pc;
     ros::spin();
+    // pc.mainloop();
 
 	return 0;
 }

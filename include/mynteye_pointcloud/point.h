@@ -70,6 +70,7 @@ class pointClass{
         void minpt();
         //センサデータ送信
         void publishPointCloud();//データ送信
+        void mainloop();
         //データクリア
         void clearMessages();
 };

@@ -11,6 +11,21 @@ void pointClass::Cluster_callback(const mynteye_pointcloud::ClassificationData::
     manage();
 }
 
+// void pointClass::mainloop()
+// {
+//     ros::Rate loop_rate(2);
+// 	while (ros::ok())
+// 	{
+//        if(isClstr() ){
+// 		// ROS_INFO("creatClstrMap");
+// 		minpt();
+// 	}
+//     publishPointCloud();
+// 		ros::spinOnce();
+// 		loop_rate.sleep();
+// 	}
+// }
+
 void pointClass::manage()
 {
     // Extract();
@@ -32,6 +47,18 @@ bool pointClass::isClstr(){//curClstrのデータの有無
 
 void pointClass::minpt()
 {
+    static bool initialized = false;
+    static double first_gc_x, second_gc_x, third_gc_x, gc_x;
+    static double first_gc_y, second_gc_y, third_gc_y, gc_y;
+    if (!initialized) {
+        first_gc_x = 0;
+        second_gc_x = 0;
+        third_gc_x = 0;
+        first_gc_y = 0;
+        second_gc_y = 0;
+        third_gc_y = 0;
+        initialized = true;
+    }
     // 初期値として一番近い点の距離を最大値に設定
     closest_distance_ = std::numeric_limits<double>::infinity();
     min_closest_distance_ = std::numeric_limits<double>::infinity();
@@ -43,9 +70,12 @@ void pointClass::minpt()
     {
         for (int m = 0; m < Clstr.data[k].pt.size(); m++)
         {
-            x_ = Clstr.data[k].pt[m].x;
-            y_ = Clstr.data[k].pt[m].y;
-            z_ = Clstr.data[k].pt[m].z;
+            // x_ = -Clstr.data[k].pt[m].x;
+            // y_ = Clstr.data[k].pt[m].y;
+            // z_ = Clstr.data[k].pt[m].z;
+            x_ = -Clstr.data[k].gc.x;
+            y_ = Clstr.data[k].gc.y;
+            z_ = Clstr.data[k].gc.z;
             // これまでの一番近い点との距離を計算
             double distance = std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
             // より近い点が見つかった場合、情報を更新
@@ -71,9 +101,26 @@ void pointClass::minpt()
             Cluster_closest_pt.Most_closest_pt.x = Cluster_closest_pt.pt[k].x;
             Cluster_closest_pt.Most_closest_pt.y = Cluster_closest_pt.pt[k].y;
             Cluster_closest_pt.Most_closest_pt.z = Cluster_closest_pt.pt[k].z;
+            first_gc_x = Cluster_closest_pt.pt[k].x;
+            first_gc_y = Cluster_closest_pt.pt[k].y;
         }
         // ROS_INFO("%f", Cluster_closest_pt.Most_closest_pt.y);
     }
+    if (second_gc_x != 0 && third_gc_x != 0)
+    {
+        gc_x = (first_gc_x + second_gc_x + third_gc_x)/3;
+    }
+    Cluster_closest_pt.Most_closest_pt.x = gc_x;
+    third_gc_x = second_gc_x;
+    second_gc_x = first_gc_x;
+    if (second_gc_y != 0 && third_gc_y != 0)
+    {
+        gc_y = (first_gc_y + second_gc_y + third_gc_y)/3;
+    }
+    Cluster_closest_pt.Most_closest_pt.y = gc_y;
+    third_gc_y = second_gc_y;
+    second_gc_y = first_gc_y;
+    ROS_INFO("%f, %f", gc_x, gc_y);
 }
 
 
