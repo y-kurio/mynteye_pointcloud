@@ -8,35 +8,35 @@
 void pointClass::Cluster_callback(const mynteye_pointcloud::ClassificationData::ConstPtr& msg)
 {
     Clstr = *msg;
-    manage();
+    // manage();
 }
 
-// void pointClass::mainloop()
-// {
-//     ros::Rate loop_rate(2);
-// 	while (ros::ok())
-// 	{
-//        if(isClstr() ){
-// 		// ROS_INFO("creatClstrMap");
-// 		minpt();
-// 	}
-//     publishPointCloud();
-// 		ros::spinOnce();
-// 		loop_rate.sleep();
-// 	}
-// }
-
-void pointClass::manage()
+void pointClass::mainloop()
 {
-    // Extract();
-    if(isClstr() ){
+    ros::Rate loop_rate(2);
+	while (ros::ok())
+	{
+       if(isClstr() ){
 		// ROS_INFO("creatClstrMap");
 		minpt();
 	}
     publishPointCloud();
-    // clearMessages();
-    
+		ros::spinOnce();
+		loop_rate.sleep();
+	}
 }
+
+// void pointClass::manage()
+// {
+//     // Extract();
+//     if(isClstr() ){
+// 		// ROS_INFO("creatClstrMap");
+// 		minpt();
+// 	}
+//     publishPointCloud();
+//     // clearMessages();
+    
+// }
 
 bool pointClass::isClstr(){//curClstrのデータの有無
 	if(Clstr.header.seq > 0 && (int)Clstr.data.size() > 0){
@@ -48,15 +48,19 @@ bool pointClass::isClstr(){//curClstrのデータの有無
 void pointClass::minpt()
 {
     static bool initialized = false;
-    static double first_gc_x, second_gc_x, third_gc_x, gc_x;
-    static double first_gc_y, second_gc_y, third_gc_y, gc_y;
+    static double first_gc_x, second_gc_x, third_gc_x, gc_x, fifth_gc_x, force_gc_x;
+    static double first_gc_y, second_gc_y, third_gc_y, gc_y, fifth_gc_y, force_gc_y;
     if (!initialized) {
         first_gc_x = 0;
         second_gc_x = 0;
         third_gc_x = 0;
+        force_gc_x = 0;
+        fifth_gc_x = 0;
         first_gc_y = 0;
         second_gc_y = 0;
         third_gc_y = 0;
+        force_gc_y = 0;
+        fifth_gc_y = 0;
         initialized = true;
     }
     // 初期値として一番近い点の距離を最大値に設定
@@ -106,21 +110,26 @@ void pointClass::minpt()
         }
         // ROS_INFO("%f", Cluster_closest_pt.Most_closest_pt.y);
     }
-    if (second_gc_x != 0 && third_gc_x != 0)
-    {
-        gc_x = (first_gc_x + second_gc_x + third_gc_x)/3;
-    }
-    Cluster_closest_pt.Most_closest_pt.x = gc_x;
-    third_gc_x = second_gc_x;
-    second_gc_x = first_gc_x;
-    if (second_gc_y != 0 && third_gc_y != 0)
-    {
-        gc_y = (first_gc_y + second_gc_y + third_gc_y)/3;
-    }
-    Cluster_closest_pt.Most_closest_pt.y = gc_y;
-    third_gc_y = second_gc_y;
-    second_gc_y = first_gc_y;
-    ROS_INFO("%f, %f", gc_x, gc_y);
+    // if (second_gc_x != 0 && third_gc_x != 0 && force_gc_x != 0 && fifth_gc_x != 0)
+    // {
+    //     gc_x = (first_gc_x + second_gc_x + third_gc_x + force_gc_x + fifth_gc_x)/5;
+    // }
+    // Cluster_closest_pt.Most_closest_pt.x = gc_x;
+    // fifth_gc_x = force_gc_x;
+    // force_gc_x = third_gc_x;
+    // third_gc_x = second_gc_x;
+    // second_gc_x = first_gc_x;
+    // if (second_gc_y != 0 && third_gc_y != 0 && force_gc_x != 0 && fifth_gc_x != 0)
+    // {
+    //     gc_y = (first_gc_y + second_gc_y + third_gc_y + force_gc_y + fifth_gc_y)/5;
+    // }
+    // Cluster_closest_pt.Most_closest_pt.y = gc_y;
+    // fifth_gc_y = force_gc_y;
+    // force_gc_y = third_gc_y;
+    // third_gc_y = second_gc_y;
+    // second_gc_y = first_gc_y;
+    // ROS_INFO("%f, %f, %f, %f, %f", first_gc_x , second_gc_x, third_gc_x, force_gc_x, fifth_gc_x);
+    // ROS_INFO("%f, %f", gc_x, gc_y);
 }
 
 
