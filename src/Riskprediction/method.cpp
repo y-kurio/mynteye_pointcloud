@@ -69,7 +69,7 @@ void RiskClass::__pantilt_order()
     object_x = Cluster_Minpts_.Most_closest_pt.x;//*sin(delta_theta) - Cluster_Minpts_.Most_closest_pt.y*cos(delta_theta);
     object_y = Cluster_Minpts_.Most_closest_pt.y;//*cos(delta_theta) + Cluster_Minpts_.Most_closest_pt.x*sin(delta_theta);
     // ROS_INFO("robo_x: %f, robo_y: %f, cam_x: %f, cam_y: %f, theta: %f",object_x, object_y, Cluster_Minpts_.Most_closest_pt.x, Cluster_Minpts_.Most_closest_pt.y);
-    most_Cluster_theta_ = __Cluster_ang(object_x, object_y);// + delta_theta;
+    most_Cluster_theta_ = __Cluster_ang(object_x, object_y); + delta_theta;
     ROS_INFO("heikin_x: %f, heikin_y: %f",Cluster_Minpts_.Most_closest_pt.x, Cluster_Minpts_.Most_closest_pt.y);
     if (most_Cluster_theta_ < 0.87 && most_Cluster_theta_ > -0.87) 
         {
