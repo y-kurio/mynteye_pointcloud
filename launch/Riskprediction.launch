@@ -2,7 +2,7 @@
 
     <node pkg="mynteye_pointcloud" type="mynteye_pointcloud_rp" name="mynteye_pointcloud_rp" output="screen">
         <param name="FRAME/ROBOT_BASE"      value="robot_4/base_link"/>
-        <param name="FRAME/CAMERA_BASE"     value="robot_4/left_camera_link"/>
+        <param name="FRAME/CAMERA_BASE"     value="robot_4/camera_link"/>
         <param name="TOPIC/PAN_CMD"         value="/robot_4/pan/command"/>
         <param name="TOPIC/TILT_CMD"        value="/robot_4/tilt/command"/>
         <param name="GAIN/PAN/P"            value="0.5"/>
