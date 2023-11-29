@@ -8,26 +8,10 @@ void pointClass::__marker_callback(const visualization_msgs::MarkerArray::ConstP
     std::vector<geometry_msgs::Point> gc_points;
     for (int i = 0; i < marker_array.markers.size(); i++)
     {
-        double minX = marker_array.markers[i].points[0].x;
-        double maxX = marker_array.markers[i].points[0].x;
-        double minY = marker_array.markers[i].points[0].y;
-        double maxY = marker_array.markers[i].points[0].y;
-        double minZ = marker_array.markers[i].points[0].z;
-        double maxZ = marker_array.markers[i].points[0].z;
-        for (const auto& point : marker_array.markers[i].points) 
+        if(marker_array.markers[i].ns.find("centor") != std::string::npos)
         {
-            minX = std::min(minX, static_cast<double>(point.x));
-            minY = std::min(minY, static_cast<double>(point.y));
-            minZ = std::min(minZ, static_cast<double>(point.z));
-            maxX = std::max(maxX, static_cast<double>(point.x));
-            maxY = std::max(maxY, static_cast<double>(point.y));
-            maxZ = std::max(maxZ, static_cast<double>(point.z));
+            gc_points.push_back(marker_array.markers[i].pose.position);
         }
-        geometry_msgs::Point gc;
-        gc.x = (maxX - minX)/2 + minX;
-        gc.y = (maxY - minY)/2 + minY;
-        gc.z = (maxZ - minZ)/2 + minZ;
-        gc_points.push_back(gc);
     }
     geometry_msgs::Point gc_closest;
     double minD = sqrt(pow(gc_points[0].x,2)+pow(gc_points[0].y,2)+pow(gc_points[0].z,2));
