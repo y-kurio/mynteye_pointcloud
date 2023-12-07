@@ -3,14 +3,14 @@
 void pointClass::__marker_callback(const visualization_msgs::MarkerArray::ConstPtr& msg)
 {
     // ROS_INFO("__marker_callback");
-    if(msg->markers.empty()) return;
+    if(msg->markers.empty()) return;// 中身が空だった場合やり直し
     visualization_msgs::MarkerArray marker_array = *msg;
     std::vector<geometry_msgs::Point> gc_points;
     for (int i = 0; i < marker_array.markers.size(); i++)
     {
         if(marker_array.markers[i].ns.find("centor") != std::string::npos)
         {
-            gc_points.push_back(marker_array.markers[i].pose.position);
+            gc_points.push_back(marker_array.markers[i].pose.position);// gc_pointsに上書きしている
         }
     }
     geometry_msgs::Point gc_closest;

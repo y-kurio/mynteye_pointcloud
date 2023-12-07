@@ -11,6 +11,8 @@
         <param name="GAIN/TILT/P"           value="0.5"/>
         <param name="GAIN/TILT/I"           value="0"/>
         <param name="GAIN/TILT/D"           value="0"/>
+        <param name="omomi_yokohaba"           value="3"/>
+        <param name="omomi_kyori"           value="2"/>
     </node>
 
     <!-- <group ns="robot_4">

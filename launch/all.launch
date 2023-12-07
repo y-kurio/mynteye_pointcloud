@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find mynteye_pointcloud)/launch/Riskprediction.launch"/>
+    <include file="$(find mynteye_pointcloud)/launch/point_cloud.launch"/>
+</launch>
