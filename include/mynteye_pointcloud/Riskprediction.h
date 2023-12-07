@@ -22,12 +22,12 @@ class RiskClass{
         mynteye_pointcloud::pointData Cluster_Minpts_, Cluster_Minpts_pre_;
 
         std::string FRAME_ROBOT_BASE, FRAME_CAMERA_BASE, TOPIC_PAN_CMD, TOPIC_TILT_CMD;
-        double weight_kyori, weight_yokohaba;
+        double OMOMI1, OMOMI2;
         double GAIN_PAN_P = 1, GAIN_PAN_I = 0, GAIN_PAN_D = 0, GAIN_TILT_P = 1, GAIN_TILT_I = 0, GAIN_TILT_D = 0;
 
         void __setLaunchParam();
         void __Cluster_closest_pointcallback(const mynteye_pointcloud::pointDataConstPtr& msg);
-        void __config_callback(const mynteye_pointcloud::risk_predictionConfig& config, uint32_t level)
+        // void __config_callback(const mynteye_pointcloud::risk_predictionConfig& config, uint32_t level)
         void __pantilt_order();
         
     public:

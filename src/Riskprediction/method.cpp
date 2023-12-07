@@ -7,12 +7,12 @@ void RiskClass::__Cluster_closest_pointcallback(const mynteye_pointcloud::pointD
     // __pantilt_order();
 }
 
-void RiskClass::__config_callback(const mynteye_pointcloud::risk_predictionConfig& config, uint32_t level)
-{
-    weight_kyori =config.weight_kyori;
-    weight_yokohaba = config.weight_yokohaba;
-    ROS_INFO("Reconfigure Request: %f, %f", config.weight_kyori, config.weight_yokohaba);
-}
+// void RiskClass::__config_callback(const mynteye_pointcloud::risk_predictionConfig& config, uint32_t level)
+// {
+//     weight_kyori =config.weight_kyori;
+//     weight_yokohaba = config.weight_yokohaba;
+//     ROS_INFO("Reconfigure Request: %f, %f", config.weight_kyori, config.weight_yokohaba);
+// }
 
 void RiskClass::mainloop()
 {
@@ -77,7 +77,7 @@ void RiskClass::__pantilt_order()
     }
     for (int j = 0; j < transformed_points.size(); j++)
     {
-        double Dis = (weight_yokohaba*fabs(0.5 / transformed_points[j].y) + weight_kyori*(close_distance.data / distance[j].data));
+        double Dis = (OMOMI1*fabs(0.5 / transformed_points[j].y) + OMOMI2*(close_distance.data / distance[j].data));
         risk_tmp.data = Dis;
         risk_power.push_back(risk_tmp);
         if(risk_power[j].data > risk_syokiti)
