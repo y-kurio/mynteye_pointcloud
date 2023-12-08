@@ -101,88 +101,47 @@ void RiskClass::__pantilt_order()
     
     for (int s = 0; s < transformed_points.size(); s++)
     {
-        marker.markers.resize(transformed_points.size());
+        visualization_msgs::Marker mk;
+
+        mk.header = target_point.header;
+        mk.ns = "riskmarker";
+        mk.id = s;
+
+        mk.type = visualization_msgs::Marker::CUBE;
+        mk.action = visualization_msgs::Marker::ADD;
+        mk.lifetime = ros::Duration();
+
+        mk.scale.x = 0.5;
+        mk.scale.y = 0.5;
+        mk.scale.z = 0.2;
+        mk.pose.position.x = transformed_points[s].x;
+        mk.pose.position.y = transformed_points[s].y;
+        mk.pose.position.z = 0;
+        mk.pose.orientation.x = 0;
+        mk.pose.orientation.y = 0;
+        mk.pose.orientation.z = 0;
+        mk.pose.orientation.w = 1;
+
         ROS_INFO("syokiti=%d, risk_power=%f", s, risk_power[s].data);
         if (risk_power[s].data == most_risk){
-            // marker0
-            marker.markers[s].header.frame_id = "map";
-            marker.markers[s].header.stamp = ros::Time::now();
-            marker.markers[s].ns = "riskmarker";
-            marker.markers[s].id = s;
-
-            marker.markers[s].type = visualization_msgs::Marker::CUBE;
-            marker.markers[s].action = visualization_msgs::Marker::ADD;
-            marker.markers[s].lifetime = ros::Duration();
-
-            marker.markers[s].scale.x = 0.5;
-            marker.markers[s].scale.y = 0.5;
-            marker.markers[s].scale.z = 0.2;
-            marker.markers[s].pose.position.x = transformed_points[s].x;
-            marker.markers[s].pose.position.y = transformed_points[s].y;
-            marker.markers[s].pose.position.z = 0;
-            marker.markers[s].pose.orientation.x = 0;
-            marker.markers[s].pose.orientation.y = 0;
-            marker.markers[s].pose.orientation.z = 0;
-            marker.markers[s].pose.orientation.w = 1;
-            marker.markers[s].color.r = 0.0f;
-            marker.markers[s].color.g = 1.0f;
-            marker.markers[s].color.b = 0.0f;
-            marker.markers[s].color.a = 1.0f;
-            marker_pub_.publish(marker);
+            mk.color.r = 0.0f;
+            mk.color.g = 1.0f;
+            mk.color.b = 0.0f;
+            mk.color.a = 1.0f;
         }else if (risk_power[s].data < 4){
-            // marker0
-            marker.markers[s].header.frame_id = "map";
-            marker.markers[s].header.stamp = ros::Time::now();
-            marker.markers[s].ns = "riskmarker";
-            marker.markers[s].id = s;
-
-            marker.markers[s].type = visualization_msgs::Marker::CUBE;
-            marker.markers[s].action = visualization_msgs::Marker::ADD;
-            marker.markers[s].lifetime = ros::Duration();
-
-            marker.markers[s].scale.x = 0.5;
-            marker.markers[s].scale.y = 0.5;
-            marker.markers[s].scale.z = 0.2;
-            marker.markers[s].pose.position.x = transformed_points[s].x;
-            marker.markers[s].pose.position.y = transformed_points[s].y;
-            marker.markers[s].pose.position.z = 0;
-            marker.markers[s].pose.orientation.x = 0;
-            marker.markers[s].pose.orientation.y = 0;
-            marker.markers[s].pose.orientation.z = 0;
-            marker.markers[s].pose.orientation.w = 1;
-            marker.markers[s].color.r = 1.0f;
-            marker.markers[s].color.g = 0.0f;
-            marker.markers[s].color.b = 0.0f;
-            marker.markers[s].color.a = 1.0f;
-            marker_pub_.publish(marker);
-        }else if (risk_power[s].data > 3){
-            // marker0
-            marker.markers[s].header.frame_id = "map";
-            marker.markers[s].header.stamp = ros::Time::now();
-            marker.markers[s].ns = "riskmarker";
-            marker.markers[s].id = s;
-
-            marker.markers[s].type = visualization_msgs::Marker::CUBE;
-            marker.markers[s].action = visualization_msgs::Marker::ADD;
-            marker.markers[s].lifetime = ros::Duration();
-
-            marker.markers[s].scale.x = 0.5;
-            marker.markers[s].scale.y = 0.5;
-            marker.markers[s].scale.z = 0.2;
-            marker.markers[s].pose.position.x = transformed_points[s].x;
-            marker.markers[s].pose.position.y = transformed_points[s].y;
-            marker.markers[s].pose.position.z = 0;
-            marker.markers[s].pose.orientation.x = 0;
-            marker.markers[s].pose.orientation.y = 0;
-            marker.markers[s].pose.orientation.z = 0;
-            marker.markers[s].pose.orientation.w = 1;
-            marker.markers[s].color.r = 0.0f;
-            marker.markers[s].color.g = 0.0f;
-            marker.markers[s].color.b = 1.0f;
-            marker.markers[s].color.a = 1.0f;
-            marker_pub_.publish(marker);
+            mk.color.r = 1.0f;
+            mk.color.g = 0.0f;
+            mk.color.b = 0.0f;
+            mk.color.a = 1.0f;
+        }else if (risk_power[s].data > 4){
+            mk.color.r = 0.0f;
+            mk.color.g = 0.0f;
+            mk.color.b = 1.0f;
+            mk.color.a = 1.0f;
         }
+        marker.markers.push_back(mk);
     }
+     marker_pub_.publish(marker);
 
     double target_angle_pan = atan2(target_point.point.y, target_point.point.x);
     // ROS_INFO("x: %f, y: %f, theta: %f",target_point.point.x, target_point.point.y, target_angle_pan);
