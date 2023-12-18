@@ -3,9 +3,11 @@ project(mynteye_pointcloud)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  tf
   sensor_msgs
   message_generation
+  tf
+  tf2
+  potbot_lib
 )
 
 add_message_files(
@@ -23,6 +25,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS roscpp sensor_msgs message_runtime 
+  # LIBRARIES ${PROJECT_NAME} potbot_lib
 #  DEPENDS system_lib
 )
 
@@ -43,11 +46,18 @@ add_executable(${PROJECT_NAME}_rp
   src/Riskprediction/debug_main.cpp
   src/Riskprediction/property.cpp
 )
+add_executable(${PROJECT_NAME}_br
+  src/tf_pantilt/constructor.cpp
+  src/tf_pantilt/method.cpp
+  src/tf_pantilt/debug_main.cpp
+  src/tf_pantilt/property.cpp
+)
 
 add_dependencies(${PROJECT_NAME}_cd ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_rp ${PROJECT_NAME}_generate_messages_cpp)
 
 target_link_libraries(${PROJECT_NAME}_cd ${catkin_LIBRARIES} )
 target_link_libraries(${PROJECT_NAME}_rp ${catkin_LIBRARIES} )
+target_link_libraries(${PROJECT_NAME}_br ${catkin_LIBRARIES} )
 
 add_definitions(-std=c++14)

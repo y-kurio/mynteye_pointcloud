@@ -13,6 +13,7 @@
         <param name="GAIN/TILT/D"           value="0"/>
         <param name="omomi_yokohaba"           value="3"/>
         <param name="omomi_kyori"           value="2"/>
+        <param name="kikenndo_sikiiti"           value="3.5"/>
     </node>
 
     <!-- <group ns="robot_4">

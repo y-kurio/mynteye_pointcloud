@@ -41,6 +41,8 @@ void RiskClass::__pantilt_order()
     double most_risk;
     std_msgs::Float64 risk_tmp, close_distance;
     visualization_msgs::MarkerArray marker;
+    std_msgs::Float64 pan_angle;
+    geometry_msgs::PoseStamped pantilt_angle;
     for(const auto& sp : Cluster_Minpts_.pt)
     {
         source_point.header = source_header;
@@ -76,7 +78,8 @@ void RiskClass::__pantilt_order()
     }
     for (int j = 0; j < transformed_points.size(); j++)
     {
-        double Dis = (OMOMI1*fabs(0.5 / transformed_points[j].y) + OMOMI2*(close_distance.data / distance[j].data));
+        // double Dis = (OMOMI1*fabs(0.5 / transformed_points[j].y) + OMOMI2*(close_distance.data / distance[j].data));
+        double Dis = (OMOMI1*(-pow(transformed_points[j].y,2)+1) + OMOMI2*(close_distance.data / distance[j].data));
         risk_tmp.data = Dis;
         risk_power.push_back(risk_tmp);
         if(risk_power[j].data > risk_syokiti)
@@ -123,19 +126,19 @@ void RiskClass::__pantilt_order()
 
         ROS_INFO("syokiti=%d, risk_power=%f", s, risk_power[s].data);
         if (risk_power[s].data == most_risk){
-            mk.color.r = 0.0f;
-            mk.color.g = 1.0f;
-            mk.color.b = 0.0f;
-            mk.color.a = 1.0f;
-        }else if (risk_power[s].data < 4){
             mk.color.r = 1.0f;
             mk.color.g = 0.0f;
             mk.color.b = 0.0f;
             mk.color.a = 1.0f;
-        }else if (risk_power[s].data > 4){
+        }else if (risk_power[s].data < kikenndo_sikiiti){
             mk.color.r = 0.0f;
             mk.color.g = 0.0f;
             mk.color.b = 1.0f;
+            mk.color.a = 1.0f;
+        }else if (risk_power[s].data > kikenndo_sikiiti){
+            mk.color.r = 0.0f;
+            mk.color.g = 1.0f;
+            mk.color.b = 0.0f;
             mk.color.a = 1.0f;
         }
         marker.markers.push_back(mk);
@@ -152,25 +155,35 @@ void RiskClass::__pantilt_order()
             listener.lookupTransform(FRAME_CAMERA_BASE, FRAME_ROBOT_BASE, ros::Time(0), transform);
             double roll, pitch, camera_yaw;
             tf::Matrix3x3(transform.getRotation()).getRPY(roll, pitch, camera_yaw);
-
-            std_msgs::Float64 pan_angle;
             // ROS_INFO("GAIN_PAN_P: %f, delta_theta: %f, camera_yaw: %f",GAIN_PAN_P, target_angle_pan, camera_yaw);
-           pan_angle.data = GAIN_PAN_P*(target_angle_pan - camera_yaw);
+            pan_angle.data = GAIN_PAN_P*(target_angle_pan - camera_yaw);
             pub_pan_.publish(pan_angle);
             
         } catch (tf::TransformException& ex) {
             ROS_ERROR("%s", ex.what());
         }
-
+        
 
     }
     else
     {
-        std_msgs::Float64 pan_angle;
         pan_angle.data = 0;
         pub_pan_.publish(pan_angle);
     }
-    
+    tf2::Quaternion quaternion;
+    quaternion.setRPY(0.0, 0.0, pan_angle.data); // RPY順にセット
+    // クォータニオンを出力
+    std::cout << "Quaternion:" << std::endl;
+    std::cout << "x: " << quaternion.x() << std::endl;
+    std::cout << "y: " << quaternion.y() << std::endl;
+    std::cout << "z: " << quaternion.z() << std::endl;
+    std::cout << "w: " << quaternion.w() << std::endl;
+    pantilt_angle.header = target_point.header;
+    pantilt_angle.pose.orientation.x = quaternion.x();
+    pantilt_angle.pose.orientation.y = quaternion.y();
+    pantilt_angle.pose.orientation.z = quaternion.z();
+    pantilt_angle.pose.orientation.w = quaternion.w();
+    pub_pan_tilt_angle_.publish(pantilt_angle);
 }
 
 // void RiskClass::__pantilt_order()

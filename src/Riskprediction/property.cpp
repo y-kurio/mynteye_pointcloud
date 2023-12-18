@@ -14,4 +14,5 @@ void RiskClass::__setLaunchParam(){
     n.getParam("GAIN/TILT/D",           GAIN_TILT_D);
     n.getParam("omomi_yokohaba",           OMOMI1);
     n.getParam("omomi_kyori",           OMOMI2);
+    n.getParam("kikenndo_sikiiti",           kikenndo_sikiiti);
 }
