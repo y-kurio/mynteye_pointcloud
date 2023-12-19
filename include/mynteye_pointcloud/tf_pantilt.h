@@ -24,6 +24,7 @@ class BroadCaster
         void __tf_pantilt();
         void __setLaunchParam();
     public:
+        void mainloop();
         BroadCaster();
         ~BroadCaster();
 };

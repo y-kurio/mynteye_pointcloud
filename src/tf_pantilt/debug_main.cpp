@@ -4,7 +4,8 @@
 int main(int argc,char **argv){
 	ros::init(argc,argv,"tf_pantilt_br");
     BroadCaster br;
-    ros::spin();
+    br.mainloop();
+    // ros::spin();
 
     // ros::NodeHandle nh;
     // tf2_ros::TransformBroadcaster dynamic_br;
@@ -15,8 +16,8 @@ int main(int argc,char **argv){
     //     double t = rostime.toSec();
     //     geometry_msgs::TransformStamped transformStamped_pan;
     //     transformStamped_pan.header.stamp = rostime;
-    //     transformStamped_pan.header.frame_id = "robot4/camera_stay_link";
-    //     transformStamped_pan.child_frame_id = "robot4/pan_link";
+    //     transformStamped_pan.header.frame_id = "robot_4/camera_stay_link";
+    //     transformStamped_pan.child_frame_id = "robot_4/pan_link";
     //     transformStamped_pan.transform.translation.x = 0.0;
     //     transformStamped_pan.transform.translation.y = 0.0;
     //     transformStamped_pan.transform.translation.z = 0.5;
@@ -31,8 +32,8 @@ int main(int argc,char **argv){
 
     //     geometry_msgs::TransformStamped transformStamped_tilt;
     //     transformStamped_tilt.header.stamp = rostime;
-    //     transformStamped_tilt.header.frame_id = "robot4/pan_link";
-    //     transformStamped_tilt.child_frame_id = "robot4/tilt_link";
+    //     transformStamped_tilt.header.frame_id = "robot_4/pan_link";
+    //     transformStamped_tilt.child_frame_id = "robot_4/tilt_link";
     //     transformStamped_tilt.transform.translation.x = 0.05;
     //     transformStamped_tilt.transform.translation.y = -0.1;
     //     transformStamped_tilt.transform.translation.z = 0.0;
@@ -46,7 +47,6 @@ int main(int argc,char **argv){
     //     dynamic_br.sendTransform(transformStamped_tilt);
     // }
 
-    // // rp.mainloop();
     // return 0;
 
 	return 0;
