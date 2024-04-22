@@ -2,7 +2,7 @@
 
 #include <mynteye_pointcloud/pointData.h>
 
-#include <mynteye_pointcloud/PointCloudData.h>
+// #include <mynteye_pointcloud/PointCloudData.h>
 #include <visualization_msgs/MarkerArray.h>
 
 //クラスの定義

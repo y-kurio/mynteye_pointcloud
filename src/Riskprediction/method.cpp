@@ -147,29 +147,29 @@ void RiskClass::__pantilt_order()
 
     double target_angle_pan = atan2(target_point.point.y, target_point.point.x);
     // ROS_INFO("x: %f, y: %f, theta: %f",target_point.point.x, target_point.point.y, target_angle_pan);
-    if (target_angle_pan < 0.87 && target_angle_pan > -0.87) 
-    {
-        tf::StampedTransform transform;
-        try {
-            // カメラフレームの姿勢を取得
-            listener.lookupTransform(FRAME_CAMERA_BASE, FRAME_ROBOT_BASE, ros::Time(0), transform);
-            double roll, pitch, camera_yaw;
-            tf::Matrix3x3(transform.getRotation()).getRPY(roll, pitch, camera_yaw);
-            // ROS_INFO("GAIN_PAN_P: %f, delta_theta: %f, camera_yaw: %f",GAIN_PAN_P, target_angle_pan, camera_yaw);
-            pan_angle.data = GAIN_PAN_P*(target_angle_pan - camera_yaw);
-            pub_pan_.publish(pan_angle);
+        if (target_angle_pan < 0.87 && target_angle_pan > -0.87) 
+        {
+            tf::StampedTransform transform;
+            try {
+                // カメラフレームの姿勢を取得
+                listener.lookupTransform(FRAME_CAMERA_BASE, FRAME_ROBOT_BASE, ros::Time(0), transform);
+                double roll, pitch, camera_yaw;
+                tf::Matrix3x3(transform.getRotation()).getRPY(roll, pitch, camera_yaw);
+                // ROS_INFO("GAIN_PAN_P: %f, delta_theta: %f, camera_yaw: %f",GAIN_PAN_P, target_angle_pan, camera_yaw);
+                pan_angle.data = GAIN_PAN_P*(target_angle_pan - camera_yaw);
+                pub_pan_.publish(pan_angle);
+                
+            } catch (tf::TransformException& ex) {
+                ROS_ERROR("%s", ex.what());
+            }
             
-        } catch (tf::TransformException& ex) {
-            ROS_ERROR("%s", ex.what());
-        }
-        
 
-    }
-    else
-    {
-        pan_angle.data = 0;
-        pub_pan_.publish(pan_angle);
-    }
+        }
+        else
+        {
+            pan_angle.data = 0;
+            pub_pan_.publish(pan_angle);
+        }
     tf2::Quaternion quaternion;
     quaternion.setRPY(0.0, 0.0, pan_angle.data); // RPY順にセット
     // クォータニオンを出力

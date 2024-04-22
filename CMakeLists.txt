@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   tf2
   potbot_lib
+  potbot_msgs
 )
 
 add_message_files(
@@ -24,8 +25,8 @@ generate_messages(
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp sensor_msgs message_runtime 
-  # LIBRARIES ${PROJECT_NAME} potbot_lib
+  CATKIN_DEPENDS roscpp sensor_msgs message_runtime
+  LIBRARIES ${PROJECT_NAME} potbot_lib
 #  DEPENDS system_lib
 )
 
