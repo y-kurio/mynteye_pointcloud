@@ -8,6 +8,8 @@ RiskClass::RiskClass()
 	pub_pan_					= nh_.advertise<std_msgs::Float64>(TOPIC_PAN_CMD, 1);
 	pub_tilt_					= nh_.advertise<std_msgs::Float64>(TOPIC_TILT_CMD, 1);
 	pub_pan_tilt_angle_	= nh_.advertise<geometry_msgs::PoseStamped>("/pantilt_transform", 1);
+
+	static tf2_ros::TransformListener tfListener(tf_buffer_);
 }
 RiskClass::~RiskClass()
 {

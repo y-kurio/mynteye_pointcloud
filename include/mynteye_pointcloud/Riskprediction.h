@@ -4,7 +4,10 @@
 
 #include <mynteye_pointcloud/pointData.h>
 
+#include <potbot_lib/Utility.h>
+
 #include <tf/transform_listener.h>
+#include <tf2_ros/buffer.h>
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <visualization_msgs/MarkerArray.h>
@@ -21,6 +24,8 @@ class RiskClass{
         ros::Subscriber sub_angle_;
         ros::Publisher pub_pan_tilt_angle_, pub_pan_, pub_tilt_, marker_pub_;
         mynteye_pointcloud::pointData Cluster_Minpts_, Cluster_Minpts_pre_;
+
+        tf2_ros::Buffer tf_buffer_;
 
         std::string FRAME_ROBOT_BASE, FRAME_CAMERA_BASE, TOPIC_PAN_CMD, TOPIC_TILT_CMD;
         double OMOMI1, OMOMI2, kikenndo_sikiiti;

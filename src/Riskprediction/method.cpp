@@ -48,10 +48,10 @@ void RiskClass::__pantilt_order()
         source_point.header = source_header;
         source_point.point = sp;
         // ROS_INFO("Transformed Point: x=%f, y=%f, z=%f", source_point.point.x, source_point.point.y, source_point.point.z);
-
+        
         try
         {
-            listener.transformPoint(FRAME_ROBOT_BASE, source_point, target_point);
+            target_point = potbot_lib::utility::get_tf(tf_buffer_, source_point, FRAME_ROBOT_BASE);
 
         // ターゲットフレームでの座標を表示
         // ROS_INFO("Transformed Point: x=%f, y=%f, z=%f", target_point.point.x, target_point.point.y, target_point.point.z);
