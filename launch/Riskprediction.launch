@@ -1,19 +1,23 @@
 <launch>
+    <arg name="FRAME/ROBOT_BASE"            default="base_link"/>
+    <arg name="FRAME/CAMERA_BASE"           default="camera_link"/>
+    <arg name="TOPIC/PAN_CMD"               default="/pan/command"/>
+    <arg name="TOPIC/TILT_CMD"              default="/tilt/command"/>
 
     <node pkg="mynteye_pointcloud" type="mynteye_pointcloud_rp" name="mynteye_pointcloud_rp" output="screen">
-        <param name="FRAME/ROBOT_BASE"      value="robot_4/base_link"/>
-        <param name="FRAME/CAMERA_BASE"     value="robot_4/camera_link"/>
-        <param name="TOPIC/PAN_CMD"         value="/robot_4/pan/command"/>
-        <param name="TOPIC/TILT_CMD"        value="/robot_4/tilt/command"/>
+        <param name="FRAME/ROBOT_BASE"      value="$(arg FRAME/ROBOT_BASE)"/>
+        <param name="FRAME/CAMERA_BASE"     value="$(arg FRAME/CAMERA_BASE)"/>
+        <param name="TOPIC/PAN_CMD"         value="$(arg TOPIC/PAN_CMD)"/>
+        <param name="TOPIC/TILT_CMD"        value="$(arg TOPIC/TILT_CMD)"/>
         <param name="GAIN/PAN/P"            value="0.5"/>
         <param name="GAIN/PAN/I"            value="0"/>
         <param name="GAIN/PAN/D"            value="0"/>
         <param name="GAIN/TILT/P"           value="0.5"/>
         <param name="GAIN/TILT/I"           value="0"/>
         <param name="GAIN/TILT/D"           value="0"/>
-        <param name="omomi_yokohaba"           value="3"/>
+        <param name="omomi_yokohaba"        value="3"/>
         <param name="omomi_kyori"           value="2"/>
-        <param name="kikenndo_sikiiti"           value="3.5"/>
+        <param name="kikenndo_sikiiti"      value="3.5"/>
     </node>
 
     <!-- <group ns="robot_4">

@@ -1,7 +1,18 @@
 <launch>
-    <group ns = "robot_4">
+    <arg name="multi_robot"                 default="robot_4"/>
+    <arg name="FRAME/ROBOT_BASE"            default="$(arg multi_robot)/base_link"/>
+    <arg name="FRAME/CAMERA_BASE"           default="$(arg multi_robot)/camera_link"/>
+    <arg name="TOPIC/PAN_CMD"               default="/$(arg multi_robot)//pan/command"/>
+    <arg name="TOPIC/TILT_CMD"              default="/$(arg multi_robot)//tilt/command"/>
+
+    <group ns = "$(arg multi_robot)">
         <group ns = "potbot">
-            <include file="$(find mynteye_pointcloud)/launch/Riskprediction.launch"/>
+            <include file="$(find mynteye_pointcloud)/launch/Riskprediction.launch">
+                <arg name="FRAME/ROBOT_BASE"    value="$(arg FRAME/ROBOT_BASE)"/>
+                <arg name="FRAME/CAMERA_BASE"   value="$(arg FRAME/CAMERA_BASE)"/>
+                <arg name="TOPIC/PAN_CMD"       value="$(arg TOPIC/PAN_CMD)"/>
+                <arg name="TOPIC/TILT_CMD"      value="$(arg TOPIC/TILT_CMD)"/>
+            </include>
             <include file="$(find mynteye_pointcloud)/launch/point_cloud.launch"/>
         </group>
     </group>
